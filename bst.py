@@ -1,0 +1,77 @@
+"""."""
+
+
+class Node(object):
+    """Creates a node object."""
+
+    def __init__(self, key, value=None, left=None, right=None):
+        """Constructor for the Node object."""
+        self.key = key
+        if not value:
+            self.value = key
+        else:
+            self.value = value
+        self.left = left
+        self.right = right
+
+
+class BST(object):
+    """Class for the binary search tree."""
+
+    def __init__(self):
+        """Constructor for the Linked List object."""
+        self.root = None
+        self.size = 0
+        self.depth = 0
+        self.right_depth = 0
+        self.left_depth = 0
+        self.balance = 0
+
+    def insert(self, key, value=None):
+        """."""
+        new_node = Node(key, value)
+        if not self.root:
+            self.root = new_node
+            self.size = 1
+        else:
+            cur = self.root
+            depth_tracker = 0
+            completed = False
+            while not completed:
+                if new_node.key > cur.key:
+                    depth_tracker += 1
+                    if not cur.right:
+                        cur.right = new_node
+                        completed = True
+                        self.right_depth = max(self.right_depth, depth_tracker)
+                        self.depth = max(self.right_depth, self.left_depth)
+                        self.balance = self.right_depth - self.left_depth
+                    else:
+                        cur = cur.right
+                elif new_node.key < cur.key:
+                    depth_tracker += 1
+                    if not cur.left:
+                        cur.left = new_node
+                        completed = True
+                        self.left_depth = max(self.left_depth, depth_tracker)
+                        self.depth = max(self.right_depth, self.left_depth)
+                        self.balance = self.right_depth - self.left_depth
+                    else:
+                        cur = cur.left
+
+    def contains(self, val):
+        """."""
+        cur = self.root
+        while True:
+            if cur.value == val:
+                return True
+            elif val < cur.value:
+                if cur.left:
+                    cur = cur.left
+                else:
+                    return False
+            elif val > cur.value:
+                if cur.right:
+                    cur = cur.right
+                else:
+                    return False
