@@ -1,4 +1,4 @@
-"""."""
+"""Binary Search Tree: Basic Edition"""
 
 
 class Node(object):
@@ -28,11 +28,12 @@ class BST(object):
         self.balance = 0
 
     def insert(self, key, value=None):
-        """."""
+        """Insert a new node into the binary search tree."""
         new_node = Node(key, value)
+        if self.contains(value):
+            raise ValueError("That value is already in the tree.")
         if not self.root:
             self.root = new_node
-            self.size = 1
         else:
             cur = self.root
             depth_tracker = 0
@@ -43,9 +44,7 @@ class BST(object):
                     if not cur.right:
                         cur.right = new_node
                         completed = True
-                        self.right_depth = max(self.right_depth, depth_tracker)
-                        self.depth = max(self.right_depth, self.left_depth)
-                        self.balance = self.right_depth - self.left_depth
+                        self.depth_side(new_node.value, depth_tracker)
                     else:
                         cur = cur.right
                 elif new_node.key < cur.key:
@@ -53,14 +52,12 @@ class BST(object):
                     if not cur.left:
                         cur.left = new_node
                         completed = True
-                        self.left_depth = max(self.left_depth, depth_tracker)
-                        self.depth = max(self.right_depth, self.left_depth)
-                        self.balance = self.right_depth - self.left_depth
+                        self.depth_side(new_node.value, depth_tracker)
                     else:
                         cur = cur.left
 
     def contains(self, val):
-        """."""
+        """Test if a tree contains a certain value."""
         cur = self.root
         while True:
             if cur.value == val:
@@ -75,3 +72,14 @@ class BST(object):
                     cur = cur.right
                 else:
                     return False
+
+    def depth_side(self, val, depth):
+        """Adjust depth & balance."""
+        if val > self.root.value:
+            self.right_depth = max(self.right_depth, depth)
+            self.depth = max(self.right_depth, self.left_depth)
+            self.balance = self.right_depth - self.left_depth
+        else:
+            self.left_depth = max(self.left_depth, depth)
+            self.depth = max(self.right_depth, self.left_depth)
+            self.balance = self.right_depth - self.left_depth
