@@ -81,3 +81,10 @@ def test_right_place_01(fancy_setup):
 def test_balance02(fancy_setup):
     """The correct balance is maintained."""
     assert fancy_setup.balance == -1
+
+
+def test_duplicate01(fancy_setup):
+    """."""
+    with pytest.raises(Exception):
+        fancy_setup.insert(17)
+

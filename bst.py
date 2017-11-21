@@ -1,4 +1,4 @@
-"""Binary Search Tree: Basic Edition"""
+"""Binary Search Tree: Basic Edition."""
 
 
 class Node(object):
@@ -30,8 +30,6 @@ class BST(object):
     def insert(self, key, value=None):
         """Insert a new node into the binary search tree."""
         new_node = Node(key, value)
-        if self.contains(value):
-            raise ValueError("That value is already in the tree.")
         if not self.root:
             self.root = new_node
         else:
@@ -39,6 +37,8 @@ class BST(object):
             depth_tracker = 0
             completed = False
             while not completed:
+                if self.contains(new_node.value):
+                    raise Exception("That number is already in the tree.")
                 if new_node.key > cur.key:
                     depth_tracker += 1
                     if not cur.right:
