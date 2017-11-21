@@ -88,3 +88,16 @@ def test_duplicate01(fancy_setup):
     with pytest.raises(Exception):
         fancy_setup.insert(17)
 
+
+def test_iterable01():
+    """BST will construct from an iterable."""
+    from bst import BST
+    b = BST([19, 25, 31, 16])
+    assert b.root.value == 19
+
+
+def test_iterable02():
+    """Will maintain form."""
+    from bst import BST
+    b = BST([19, 25, 31, 16])
+    assert b.root.right.value == 25

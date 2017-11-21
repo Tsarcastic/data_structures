@@ -18,7 +18,7 @@ class Node(object):
 class BST(object):
     """Class for the binary search tree."""
 
-    def __init__(self):
+    def __init__(self, iterable=()):
         """Constructor for the Linked List object."""
         self.root = None
         self.size = 0
@@ -26,6 +26,9 @@ class BST(object):
         self.right_depth = 0
         self.left_depth = 0
         self.balance = 0
+        if hasattr(iterable, '__iter__') or isinstance(iterable, str):
+            for item in iterable:
+                self.insert(item)        
 
     def insert(self, key, value=None):
         """Insert a new node into the binary search tree."""
