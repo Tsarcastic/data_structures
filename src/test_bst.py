@@ -116,3 +116,17 @@ def test_pre_order01(fancy_setup):
 def test_post_order01(fancy_setup):
     """Test post_order method."""
     assert fancy_setup.post_order(fancy_setup.root) == [52, 17, 91, 90, 390, 400, 100]
+
+
+def test_breadth_first(fancy_setup):
+    """Test breadth first."""
+    assert fancy_setup.breadth_first() == [100, 90, 400, 17, 91, 390, 52]
+
+
+def test_io_generator(fancy_setup):
+    """Generator UH what is it good for absolutely nothing say it again."""
+    the_answer = []
+    genOb = fancy_setup.io_generator(fancy_setup.root)
+    for x in genOb:
+        the_answer.append(next(genOb))
+    assert the_answer == []

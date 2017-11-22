@@ -41,6 +41,7 @@ class Queue(object):
                 self.head = self.head.next
         else:
             self.head = None
+            self.tail = None
         self._counter -= 1
         return output
 
