@@ -101,3 +101,18 @@ def test_iterable02():
     from bst import BST
     b = BST([19, 25, 31, 16])
     assert b.root.right.value == 25
+
+def test_in_order01(fancy_setup):
+    """Test in_order method"""
+    assert fancy_setup.in_order(fancy_setup.root) == [17, 52, 90, 91, 100, 390, 400]
+
+
+
+def test_pre_order01(fancy_setup):
+    """Test pre_order method."""
+    assert fancy_setup.pre_order(fancy_setup.root) == [100, 90, 17, 52, 91, 400, 390]
+
+
+def test_post_order01(fancy_setup):
+    """Test post_order method."""
+    assert fancy_setup.post_order(fancy_setup.root) == [52, 17, 91, 90, 390, 400, 100]

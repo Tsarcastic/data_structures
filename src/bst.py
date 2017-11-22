@@ -1,5 +1,6 @@
 """Binary Search Tree: Basic Edition."""
 
+from que_   import Queue
 
 class Node(object):
     """Creates a node object."""
@@ -26,6 +27,7 @@ class BST(object):
         self.right_depth = 0
         self.left_depth = 0
         self.balance = 0
+        self.list = []
         if hasattr(iterable, '__iter__') or isinstance(iterable, str):
             for item in iterable:
                 self.insert(item)        
@@ -86,3 +88,39 @@ class BST(object):
             self.left_depth = max(self.left_depth, depth)
             self.depth = max(self.right_depth, self.left_depth)
             self.balance = self.right_depth - self.left_depth
+
+    def in_order(self, node):
+        """Return values in order traversal."""
+        if node:
+            self.in_order(node.left)
+            self.list.append(node.value)
+            self.in_order(node.right)
+        return self.list
+
+    def pre_order(self, node):
+        """Return values pre order."""
+        if node:
+            self.list.append(node.value)
+            self.pre_order(node.left)
+            self.pre_order(node.right)
+        return self.list
+
+    def post_order(self, node):
+        """Return values post order."""
+        if node:
+            self.post_order(node.left)
+            self.post_order(node.right)
+            self.list.append(node.value)
+        return self.list
+
+    def breadth_first_traversal(self):
+        q = Queue()
+        q.enqueue(self.root)
+        while len(q) > 0:
+            cur = q.dequeue
+            if cur.left:
+                q.enqueue(cur.left)
+            if cur.right:
+                q.enqueue(cur.right)
+            self.list.append(cur.value)
+        return self.list
