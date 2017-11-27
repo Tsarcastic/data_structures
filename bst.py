@@ -1,7 +1,6 @@
 """Binary Search Tree: Basic Edition."""
 from stack import stack
 
-
 class Node(object):
     """Creates a node object."""
 
@@ -29,7 +28,7 @@ class BST(object):
         self.balance = 0
         if hasattr(iterable, '__iter__') or isinstance(iterable, str):
             for item in iterable:
-                self.insert(item)        
+                self.insert(item)
 
     def insert(self, key, value=None):
         """Insert a new node into the binary search tree."""
@@ -47,6 +46,7 @@ class BST(object):
                     depth_tracker += 1
                     if not cur.right:
                         cur.right = new_node
+                        self.size += 1
                         completed = True
                         self.depth_side(new_node.value, depth_tracker)
                     else:
@@ -55,6 +55,7 @@ class BST(object):
                     depth_tracker += 1
                     if not cur.left:
                         cur.left = new_node
+                        self.size += 1
                         completed = True
                         self.depth_side(new_node.value, depth_tracker)
                     else:
@@ -88,8 +89,3 @@ class BST(object):
             self.depth = max(self.right_depth, self.left_depth)
             self.balance = self.right_depth - self.left_depth
 
-    def in_order(self):
-        """."""
-        cur = self.root
-        the_stack = Stack()
-        
