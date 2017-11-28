@@ -1,12 +1,12 @@
-"""Test that binary search tree."""
+"""."""
 
-import pytest
+import pytest 
 
 
 @pytest.fixture
 def basic_setup():
     """A basic setup with two numbers."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(9)
     b.insert(10)
@@ -16,7 +16,7 @@ def basic_setup():
 @pytest.fixture
 def fancy_setup():
     """A more complicated setup."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(100)
     b.insert(90)
@@ -123,10 +123,37 @@ def test_breadth_first(fancy_setup):
     assert fancy_setup.breadth_first() == [100, 90, 400, 17, 91, 390, 52]
 
 
-#def test_io_generator(fancy_setup):
-    """Generator UH what is it good for absolutely nothing say it again."""
-    #the_answer = []
-    #genOb = fancy_setup.io_generator(fancy_setup.root)
-    #for x in genOb:
-        #the_answer.append(next(genOb))
-    #assert the_answer == []
+def test_restructure01(fancy_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancy_setup.restructure(fancy_setup.root.right)).value == 390
+
+
+def test_restructure02(fancy_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancy_setup.restructure(fancy_setup.root.left)).value == 91
+
+
+def test_restructure03(fancy_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancy_setup.restructure(fancy_setup.root)).value == 390
+
+
+def test_delete01(basic_setup):
+    """Test those deleteses."""
+    basic_setup.delete(9)
+    basic_setup.delete(10)
+    assert not basic_setup.root
+
+
+def test_delete02(fancy_setup):
+    """Test more deleteses."""
+    fancy_setup.delete(100)
+    assert fancy_setup.root.value == 390
+
+
+def test_delete03(fancy_setup):
+    """Test more deleteses."""
+    fancy_setup.delete(100)
+    fancy_setup.delete(390)
+    fancy_setup.delete(400)
+    assert fancy_setup.root.value == 91

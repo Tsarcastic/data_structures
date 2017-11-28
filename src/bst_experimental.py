@@ -144,83 +144,76 @@ class BST(object):
             yield node.value
             self.in_order(node.right)
 
+    def restructure(self, cur):
+        """Restructure."""
+        if not cur.left and not cur.right:
+                return None
+        elif cur.left and cur.right:
+            tracker = cur.right
+
+            if not tracker.left:
+                tracker.left = cur.left
+                return tracker
+
+            else:
+                while tracker.left.left:
+                    tracker = tracker.left
+
+                replacement = tracker.left
+                tracker.left = replacement.right
+                replacement.left = cur.left
+                replacement.right = cur.right
+                return replacement
+                # Yassss
+
+        else:
+            if cur.left:
+                tracker = cur.left
+
+                if not tracker.right:
+                    return tracker
+
+                else:
+                    while tracker.right.right:
+                        tracker = tracker.right
+
+                    replacement = tracker.right
+                    tracker.right = replacement.left
+                    replacement.left = cur.left
+                    return replacement
+
+            else:
+                tracker = cur.right
+
+                if not tracker.left:
+                    return tracker
+
+                else:
+                    while tracker.left.left:
+                        tracker = tracker.left
+
+                    replacement = tracker.left
+                    tracker.left = replacement.right
+                    replacement.right = cur.right
+                    return replacement
+
     def delete(self, value):
         """Delete a node with the given value, or return no-op."""
         if self.root.value == value:
-            if not self.left and not self.right:
-                self.root = None
-            else:
-                # Restructuring
-                pass
+            self.root = self.restructure(self.root)
+            return
         cur = self.root
         completed = False
         while not completed:
             if value < cur.value:
                 if cur.left.value == value:
-                    restructure(cur, "left")
+                    cur.left = self.restructure(cur.left)
                     completed = True
                 else:
                     cur = cur.left
             else:
                 if cur.right.value == value:
-                    restructure(cur, "left")
+                    cur.right = self.restructure(cur.right)
                     completed = True
                 else:
                     cur = cur.right
-
-    def restructure(self, cur, side):
-        """Restructure."""
-        if side == 'left':
-            if not cur.left.left and not cur.left.right:
-                # No children
-                cur.left = None
-            elif cur.left.left and cur.left.right:
-                # Two children
-                tracker = cur.left.right
-                
-                if not tracker.left:
-                    tracker.left = cur.left.left
-                    cur.left = tracker
-                
-                else:
-                    while tracker.left.left:
-                        tracker = tracker.left
-                
-                    replacement = tracker.left 
-                    tracker.left = replacement.right
-                    replacement.left = cur.left.left 
-                    replacement.right = cur.left.right
-                    cur.left = replacement
-
-            else:
-                if cur.left.left:
-                    tracker = cur.left.left
-
-                    if not tracker.right:
-                        curr.left = tracker
-
-                    else:
-                        while tracker.right.right:
-                            tracker = tracker.right
-
-                        replacement = tracker.right
-                        tracker.right = replacement.left
-                        replacement.left = curr.left.left
-                        cur.left = replacement 
-
-                else:
-                    cur.left = cur.left.right
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
