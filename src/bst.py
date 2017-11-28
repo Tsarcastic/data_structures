@@ -132,4 +132,74 @@ class BST(object):
         if node:
             self.in_order(node.left)
             yield node.value
-            self.in_order(node.right)    
+            self.in_order(node.right)
+
+    def delete(self, value):
+        """Delete a node with the given value, or return no-op."""
+        if self.root.value == value:
+            if not self.left and not self.right:
+                self.root = None
+            else:
+                # Restructuring
+                pass
+        cur = self.root
+        completed = False
+        while not completed:
+            if value < cur.value:
+                if cur.left.value == value:
+                    # Restructuring
+                    pass
+                else:
+                    cur = cur.left
+            else:
+                if cur.right.value == value:
+                    # Restructuring
+                    pass
+                else:
+                    cur = cur.right
+   
+   def restructure(self, cur, side):
+        """Restructure."""
+        if side == 'left':
+            if not cur.left.left and not cur.left.right:
+                # No children
+                cur.left = None
+            elif cur.left.left and cur.left.right:
+                peepaw = cur.left.right
+                
+                if not peepaw.left:
+                    peepaw.left = cur.left.left
+                    cur.left = peepaw
+                
+                while peepaw.left.left:
+                    peepaw = peepaw.left
+                
+                replacement = peepaw.left 
+                peepaw.left = replacement.right
+                replacement.left = cur.left.left 
+                replacement.right = cur.left.right
+                cur.left = replacement
+
+            else:
+                if cur.left.left:
+                    replacement = cur.left.left
+                    while replacement.right:
+                        replacement = replacement.right
+
+
+            elif cur.left.left and cur.left.right:
+                # Two children
+                replacement = cur.left.right
+                if not replacement.left:
+                    # If Replacement doesn't have a left node Replacement keeps its right and left is reassigned.
+                    replacement.left = cur.left.left
+                    cur.left = replacement
+                while replacement.left:
+                # Moves to the left
+                    replacement = replacement.left
+                if replacement.right:
+                    cur.left.right.left = replacement.right
+                cur.left.right.left = replacement.right
+                replacement.left = cur.left.left
+                replacement.right = cur.left.right
+                cur.left = replacement
