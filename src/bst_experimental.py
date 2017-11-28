@@ -205,13 +205,21 @@ class BST(object):
         cur = self.root
         completed = False
         while not completed:
-            if value < cur.value:
-                if cur.left.value == value:
+            if not cur.value:
+                return ValueError('The BST does not contain that value')
+
+            elif value < cur.value:
+                if not cur.left:
+                    raise ValueError('The BST does not contain that value')
+                elif cur.left.value == value:
                     cur.left = self.restructure(cur.left)
                     completed = True
                 else:
                     cur = cur.left
+
             else:
+                if not cur.right:
+                    raise ValueError('The BST does not contain that value')
                 if cur.right.value == value:
                     cur.right = self.restructure(cur.right)
                     completed = True

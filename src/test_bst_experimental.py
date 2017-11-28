@@ -157,3 +157,9 @@ def test_delete03(fancy_setup):
     fancy_setup.delete(390)
     fancy_setup.delete(400)
     assert fancy_setup.root.value == 91
+
+
+def test_deletenull(fancy_setup):
+    """Test more deleteses."""
+    with pytest.raises(ValueError):
+        fancy_setup.delete(11)
