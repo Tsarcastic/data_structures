@@ -165,26 +165,52 @@ class BST(object):
                 # No children
                 cur.left = None
             elif cur.left.left and cur.left.right:
-                peepaw = cur.left.right
+                tracker = cur.left.right
                 
-                if not peepaw.left:
-                    peepaw.left = cur.left.left
-                    cur.left = peepaw
+                if not tracker.left:
+                    tracker.left = cur.left.left
+                    cur.left = tracker
                 
-                while peepaw.left.left:
-                    peepaw = peepaw.left
+                else:
+                    while tracker.left.left:
+                        tracker = tracker.left
                 
-                replacement = peepaw.left 
-                peepaw.left = replacement.right
-                replacement.left = cur.left.left 
-                replacement.right = cur.left.right
-                cur.left = replacement
+                    replacement = tracker.left 
+                    tracker.left = replacement.right
+                    replacement.left = cur.left.left 
+                    replacement.right = cur.left.right
+                    cur.left = replacement
 
             else:
                 if cur.left.left:
-                    replacement = cur.left.left
-                    while replacement.right:
-                        replacement = replacement.right
+                    tracker = cur.left.left
+
+                    if not tracker.right:
+                        curr.left = tracker
+
+                    else:
+                        while tracker.right.right:
+                        tracker = tracker.right
+
+                        replacement = tracker.right
+                        tracker.right = replacement.left
+                        replacement.left = curr.left.left
+                        cur.left = replacement 
+
+                else:
+                    cur.left = cur.left.right
+
+
+
+            
+
+
+
+
+
+
+
+
 
 
             elif cur.left.left and cur.left.right:
