@@ -40,6 +40,25 @@ def fancier_setup():
     b.insert(180)
     return b
 
+
+@pytest.fixture
+def fanciest_setup():
+    """Ooooh, fancy."""
+    from bst_experimental import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    b.insert(150)
+    b.insert(300)
+    return b
+
+
+
+
 def test_bst_root(basic_setup):
     """9 is in the tree."""
     assert basic_setup.root.value == 9
@@ -185,3 +204,25 @@ def test_fancier_restructure(fancier_setup):
 def test_restructure04(fancier_setup):
     """Test the restructure method on fancy_setup tree."""
     assert (fancier_setup.restructure(fancier_setup.root.right)).value == 175
+
+
+def test_restructure05(fancier_setup):
+    """Test the restructure method on fancy_setup tree."""
+    fancier_setup.delete(200)
+    assert (fancier_setup.restructure(fancier_setup.root.right)).value == 180
+
+
+def test_restructure06(fanciest_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fanciest_setup.restructure(fanciest_setup.root)).value == 150
+
+
+def test_restructure07(fanciest_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fanciest_setup.restructure(fanciest_setup.root.left.left)).value == 60
+
+
+def test_restructure08(fanciest_setup):
+    """Test the restructure method on fancy_setup tree."""
+    fanciest_setup.delete(53)
+    assert fanciest_setup.root.left.left.value == 60

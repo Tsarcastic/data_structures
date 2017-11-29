@@ -1,4 +1,4 @@
-"""Test that binary search tree."""
+"""."""
 
 import pytest
 
@@ -6,7 +6,7 @@ import pytest
 @pytest.fixture
 def basic_setup():
     """A basic setup with two numbers."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(9)
     b.insert(10)
@@ -16,7 +16,7 @@ def basic_setup():
 @pytest.fixture
 def fancy_setup():
     """A more complicated setup."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(100)
     b.insert(90)
@@ -26,6 +26,36 @@ def fancy_setup():
     b.insert(91)
     b.insert(52)
     return b
+
+
+@pytest.fixture
+def fancier_setup():
+    """Ooooh, fancy."""
+    from bst_experimental import BST
+    b = BST()
+    b.insert(100)
+    b.insert(200)
+    b.insert(175)
+    b.insert(190)
+    b.insert(180)
+    return b
+
+
+@pytest.fixture
+def fanciest_setup():
+    """Ooooh, fancy."""
+    from bst_experimental import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    b.insert(150)
+    b.insert(300)
+    return b
+
 
 
 def test_bst_root(basic_setup):
@@ -102,10 +132,10 @@ def test_iterable02():
     b = BST([19, 25, 31, 16])
     assert b.root.right.value == 25
 
-def test_in_order01(fancy_setup):
-    """Test in_order method"""
-    assert fancy_setup.in_order(fancy_setup.root) == [17, 52, 90, 91, 100, 390, 400]
 
+def test_in_order01(fancy_setup):
+    """Test in_order method."""
+    assert fancy_setup.in_order(fancy_setup.root) == [17, 52, 90, 91, 100, 390, 400]
 
 
 def test_pre_order01(fancy_setup):
@@ -123,10 +153,75 @@ def test_breadth_first(fancy_setup):
     assert fancy_setup.breadth_first() == [100, 90, 400, 17, 91, 390, 52]
 
 
-#def test_io_generator(fancy_setup):
-    """Generator UH what is it good for absolutely nothing say it again."""
-    #the_answer = []
-    #genOb = fancy_setup.io_generator(fancy_setup.root)
-    #for x in genOb:
-        #the_answer.append(next(genOb))
-    #assert the_answer == []
+def test_restructure01(fancy_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancy_setup.restructure(fancy_setup.root.right)).value == 390
+
+
+def test_restructure02(fancy_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancy_setup.restructure(fancy_setup.root.left)).value == 91
+
+
+def test_restructure03(fancy_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancy_setup.restructure(fancy_setup.root)).value == 390
+
+
+def test_delete01(basic_setup):
+    """Test those deleteses."""
+    basic_setup.delete(9)
+    basic_setup.delete(10)
+    assert not basic_setup.root
+
+
+def test_delete02(fancy_setup):
+    """Test more deleteses."""
+    fancy_setup.delete(100)
+    assert fancy_setup.root.value == 390
+
+
+def test_delete03(fancy_setup):
+    """Test more deleteses."""
+    fancy_setup.delete(100)
+    fancy_setup.delete(390)
+    fancy_setup.delete(400)
+    assert fancy_setup.root.value == 91
+
+
+def test_deletenull(fancy_setup):
+    """Test more deleteses."""
+    with pytest.raises(ValueError):
+        fancy_setup.delete(11)
+
+
+def test_fancier_restructure(fancier_setup):
+    """To make sure everything is being built correctly."""
+    assert fancier_setup.root.right.left.right.left.value == 180
+
+
+def test_restructure04(fancier_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancier_setup.restructure(fancier_setup.root.right)).value == 175
+
+
+def test_restructure05(fancier_setup):
+    """Test the restructure method on fancy_setup tree."""
+    fancier_setup.delete(200)
+    assert (fancier_setup.restructure(fancier_setup.root.right)).value == 180
+
+
+def test_restructure06(fanciest_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fanciest_setup.restructure(fanciest_setup.root)).value == 150
+
+
+def test_restructure07(fanciest_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fanciest_setup.restructure(fanciest_setup.root.left.left)).value == 60
+
+
+def test_restructure08(fanciest_setup):
+    """Test the restructure method on fancy_setup tree."""
+    fanciest_setup.delete(53)
+    assert fanciest_setup.root.left.left.value == 60
