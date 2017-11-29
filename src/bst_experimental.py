@@ -170,7 +170,7 @@ class BST(object):
             if cur.left:
                 tracker = cur.left
 
-                if not tracker.right:
+                if not tracker.left:
                     return tracker
 
                 else:
@@ -219,7 +219,7 @@ class BST(object):
 
             else:
                 if not cur.right:
-                    raise ValueError('The BST does not contain that value')
+                    raise ValueError('The BST does not contain that')
                 if cur.right.value == value:
                     cur.right = self.restructure(cur.right)
                     completed = True

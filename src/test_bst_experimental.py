@@ -1,6 +1,6 @@
 """."""
 
-import pytest 
+import pytest
 
 
 @pytest.fixture
@@ -27,6 +27,18 @@ def fancy_setup():
     b.insert(52)
     return b
 
+
+@pytest.fixture
+def fancier_setup():
+    """Ooooh, fancy."""
+    from bst_experimental import BST
+    b = BST()
+    b.insert(100)
+    b.insert(200)
+    b.insert(175)
+    b.insert(190)
+    b.insert(180)
+    return b
 
 def test_bst_root(basic_setup):
     """9 is in the tree."""
@@ -102,10 +114,10 @@ def test_iterable02():
     b = BST([19, 25, 31, 16])
     assert b.root.right.value == 25
 
-def test_in_order01(fancy_setup):
-    """Test in_order method"""
-    assert fancy_setup.in_order(fancy_setup.root) == [17, 52, 90, 91, 100, 390, 400]
 
+def test_in_order01(fancy_setup):
+    """Test in_order method."""
+    assert fancy_setup.in_order(fancy_setup.root) == [17, 52, 90, 91, 100, 390, 400]
 
 
 def test_pre_order01(fancy_setup):
@@ -163,3 +175,13 @@ def test_deletenull(fancy_setup):
     """Test more deleteses."""
     with pytest.raises(ValueError):
         fancy_setup.delete(11)
+
+
+def test_fancier_restructure(fancier_setup):
+    """To make sure everything is being built correctly."""
+    assert fancier_setup.root.right.left.right.left.value == 180
+
+
+def test_restructure04(fancier_setup):
+    """Test the restructure method on fancy_setup tree."""
+    assert (fancier_setup.restructure(fancier_setup.root.right)).value == 175
