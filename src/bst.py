@@ -24,13 +24,9 @@ class BST(object):
     """Class for the binary search tree."""
 
     def __init__(self, iterable=()):
-        """Constructor for the Linked List object."""
+        """Constructor for the BST object."""
         self.root = None
         self.size = 0
-        self.depth = 0
-        self.right_depth = 0
-        self.left_depth = 0
-        self.balance = 0
         self.list = []
         if hasattr(iterable, '__iter__') or isinstance(iterable, str):
             for item in iterable:
@@ -43,35 +39,27 @@ class BST(object):
             self.root = new_node
         else:
             cur = self.root
-            depth_tracker = 0
             completed = False
             while not completed:
 
-                if self.contains(new_node.value):
+                if new_node.key == cur.key:
                     raise Exception("That number is already in the tree.")
 
                 self.size += 1
 
                 if new_node.key > cur.key:
-                    depth_tracker += 1
                     if not cur.right:
                         cur.right = new_node
-                        cur.right_depth += 1
+                        new_node.parent = cur
                         completed = True
-                        self.depth_side(new_node.value, depth_tracker)
                     else:
-                        cur.right_depth += 1
                         cur = cur.right
 
                 elif new_node.key < cur.key:
-                    depth_tracker += 1
                     if not cur.left:
                         cur.left = new_node
-                        cur.left_depth += 1
                         completed = True
-                        self.depth_side(new_node.value, depth_tracker)
                     else:
-                        cur.left_depth += 1
                         cur = cur.left
 
     def contains(self, val):

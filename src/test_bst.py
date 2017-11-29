@@ -6,7 +6,7 @@ import pytest
 @pytest.fixture
 def basic_setup():
     """A basic setup with two numbers."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(9)
     b.insert(10)
@@ -16,7 +16,7 @@ def basic_setup():
 @pytest.fixture
 def fancy_setup():
     """A more complicated setup."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(100)
     b.insert(90)
@@ -31,7 +31,7 @@ def fancy_setup():
 @pytest.fixture
 def fancier_setup():
     """Ooooh, fancy."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(100)
     b.insert(200)
@@ -44,7 +44,7 @@ def fancier_setup():
 @pytest.fixture
 def fanciest_setup():
     """Ooooh, fancy."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(100)
     b.insert(70)
