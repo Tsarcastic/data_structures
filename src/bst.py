@@ -51,6 +51,7 @@ class BST(object):
                     if not cur.right:
                         cur.right = new_node
                         new_node.parent = cur
+                        # balance!
                         completed = True
                     else:
                         cur = cur.right
@@ -214,3 +215,66 @@ class BST(object):
                     completed = True
                 else:
                     cur = cur.right
+
+    def balancing(self, parent, child):
+        """Adjust balance for the tree."""
+        while parent.parent:
+            if parent.left.key == child.key:
+                parent.left_depth += 1
+            elif parent.right.key == child.key:
+                parent.right_depth += 1
+
+            balance = parent.right_depth - parent.left_depth
+            if balance == -2:
+                if parent.left and parent.left.left:
+                    self.left_left(parent)
+                elif parent.left.right:
+                    self.left_right(parent)
+
+            elif balance == 2:
+                if parent.right and parent.right.right:
+                    self.right_right(parent)
+
+    def left_left(self, root):
+        """Left-left case - Right rotation."""
+        pivot = root.left
+        root.parent = pivot
+        root.left = None
+        pivot.right = root
+        pivot.right_depth += 1
+        root.left_depth += -2
+
+    def right_right(self, root):
+        """Right-right case - Left rotation."""
+        pivot = root.right
+        pivot.parent = root.parent
+        root.parent = pivot
+        root.right = None
+        pivot.left = root
+        pivot.left_depth += 1
+        root.right_depth += -2
+        if not pivot.parent:
+            self.root = pivot
+
+    def left_right(self, root):
+        """It's just a jump to the left. And a step to the ri-i-i-ight."""
+        right = root
+        center = root.left.right
+        left = root.left
+
+        if right == self.root:
+            self.root = center
+        else:
+            if right.parent.left == right:
+                right.parent.left == center
+                right.parent.left_depth += -1
+            elif right.parent.right == right:
+                right.parent.right == center
+                right.parent.right_depth += -1
+
+        left.right = None
+        left.parent = center
+
+        center.left = left
+        center.parent = right.parent
+        center.right = right

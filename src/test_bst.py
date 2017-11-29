@@ -74,29 +74,9 @@ def test_contains01(basic_setup):
     assert basic_setup.contains(10)
 
 
-def test_depth01(basic_setup):
-    """Depth registers correctly."""
-    assert basic_setup.depth == 1
-
-
-def test_balance01(basic_setup):
-    """Balance registers correctly."""
-    assert basic_setup.balance == 1
-
-
 def test_contain02(fancy_setup):
     """52 is in the tree."""
     assert fancy_setup.contains(52)
-
-
-def test_depth02(fancy_setup):
-    """Depth is maintained in a fancy setup."""
-    assert fancy_setup.depth == 3
-
-
-def test_depth03(fancy_setup):
-    """Left depth registers correctly."""
-    assert fancy_setup.left_depth == 3
 
 
 def test_contains03(fancy_setup):
@@ -107,11 +87,6 @@ def test_contains03(fancy_setup):
 def test_right_place_01(fancy_setup):
     """The 52 is where it should be."""
     assert fancy_setup.root.left.left.right.value == 52
-
-
-def test_balance02(fancy_setup):
-    """The correct balance is maintained."""
-    assert fancy_setup.balance == -1
 
 
 def test_duplicate01(fancy_setup):
@@ -226,3 +201,14 @@ def test_restructure08(fanciest_setup):
     """Test the restructure method on fancy_setup tree."""
     fanciest_setup.delete(53)
     assert fanciest_setup.root.left.left.value == 60
+
+
+def test_left_right(basic_setup):
+    """See if this left_right flip works."""
+    basic_setup.insert(4)
+    basic_setup.insert(6)
+    basic_setup.left_right(basic_setup.root)
+    assert basic_setup.root.value == 6
+    assert basic_setup.root.left.value == 4
+    assert basic_setup.root.right.value == 9
+    assert basic_setup.root.right.right.value == 10
