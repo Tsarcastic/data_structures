@@ -48,17 +48,19 @@ class BST(object):
                 self.size += 1
 
                 if new_node.key > cur.key:
+                    cur.right_depth += 1
                     if not cur.right:
                         cur.right = new_node
                         new_node.parent = cur
-                        # balance!
                         completed = True
                     else:
                         cur = cur.right
 
                 elif new_node.key < cur.key:
+                    cur.left_depth += 1
                     if not cur.left:
                         cur.left = new_node
+                        new_node.parent = cur
                         completed = True
                     else:
                         cur = cur.left
@@ -218,22 +220,19 @@ class BST(object):
 
     def balancing(self, parent, child):
         """Adjust balance for the tree."""
-        while parent.parent:
-            if parent.left.key == child.key:
-                parent.left_depth += 1
-            elif parent.right.key == child.key:
-                parent.right_depth += 1
+        grand_pappy = parent.parent
+        balance = grand_pappy.right_depth - grand_pappy.left_depth
+        if balance == -2:
+            if grand_pappy.left and grand_pappy.left.left:
+                self.left_left(grand_pappy)
+            else:
+                self.left_right(grand_pappy)
 
-            balance = parent.right_depth - parent.left_depth
-            if balance == -2:
-                if parent.left and parent.left.left:
-                    self.left_left(parent)
-                elif parent.left.right:
-                    self.left_right(parent)
-
-            elif balance == 2:
-                if parent.right and parent.right.right:
-                    self.right_right(parent)
+        elif balance == 2:
+            if grand_pappy.right and grand_pappy.right.right:
+                self.right_right(grand_pappy)
+            else:
+                self.right_left(grand_pappy)
 
     def left_left(self, root):
         """Left-left case - Right rotation."""
@@ -257,7 +256,7 @@ class BST(object):
             self.root = pivot
 
     def left_right(self, root):
-        """It's just a jump to the left. And a step to the ri-i-i-ight."""
+        """. It's just a jump to the left. And a step to the ri-i-i-ight."""
         right = root
         center = root.left.right
         left = root.left
@@ -273,8 +272,45 @@ class BST(object):
                 right.parent.right_depth += -1
 
         left.right = None
-        left.parent = center
+        left.right_depth += -1
 
         center.left = left
         center.parent = right.parent
         center.right = right
+        center.right_depth = 1
+        center.left_depth = 1
+
+        right.parent = center
+        right.left = None
+        right.left_depth += -2
+
+    def right_left(self, root):
+        """Riiight. Leeefft. Riiight. Leeefftt."""
+        left = root
+        center = root.right.left
+        right = root.right
+
+        if left == self.root:
+            self.root = center
+        else:
+            if left.parent.left == left:
+                left.parent.left == center
+                right.parent.left_depth += 1
+            elif right.parent.right == right:
+                left.parent.right == right
+                left.parent.right == center
+                left.parent.right_depth += 1
+
+        left.right = None
+        left.parent = center
+        left.right_depth += -2
+
+        center.left = left
+        center.parent = left.parent
+        center.right = right
+        center.right_depth = 1
+        center.left_depth = 1
+
+        right.right = None
+        right.parent = center
+        right.left_depth += -1
