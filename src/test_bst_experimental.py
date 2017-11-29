@@ -58,6 +58,7 @@ def fanciest_setup():
 
 
 
+
 def test_bst_root(basic_setup):
     """9 is in the tree."""
     assert basic_setup.root.value == 9
