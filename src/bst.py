@@ -48,19 +48,22 @@ class BST(object):
                 self.size += 1
 
                 if new_node.key > cur.key:
-                    cur.right_depth += 1
                     if not cur.right:
                         cur.right = new_node
                         new_node.parent = cur
+                        self.depth_adjust(new_node, 0)
+                        self.balancing(new_node)
                         completed = True
                     else:
                         cur = cur.right
 
                 elif new_node.key < cur.key:
-                    cur.left_depth += 1
                     if not cur.left:
+                        # self.balancing(new_node, 0)
                         cur.left = new_node
                         new_node.parent = cur
+                        self.depth_adjust(new_node, 0)
+                        self.balancing(new_node)
                         completed = True
                     else:
                         cur = cur.left
@@ -218,21 +221,23 @@ class BST(object):
                 else:
                     cur = cur.right
 
-    def balancing(self, parent, child):
+    def balancing(self, parent):
         """Adjust balance for the tree."""
         grand_pappy = parent.parent
-        balance = grand_pappy.right_depth - grand_pappy.left_depth
-        if balance == -2:
-            if grand_pappy.left and grand_pappy.left.left:
-                self.left_left(grand_pappy)
-            else:
-                self.left_right(grand_pappy)
+        while grand_pappy:
+            balance = grand_pappy.right_depth - grand_pappy.left_depth
+            if balance == -2:
+                if grand_pappy.left and grand_pappy.left.left:
+                    self.left_left(grand_pappy)
+                else:
+                    self.left_right(grand_pappy)
 
-        elif balance == 2:
-            if grand_pappy.right and grand_pappy.right.right:
-                self.right_right(grand_pappy)
-            else:
-                self.right_left(grand_pappy)
+            elif balance == 2:
+                if grand_pappy.right and grand_pappy.right.right:
+                    self.right_right(grand_pappy)
+                else:
+                    self.right_left(grand_pappy)
+            grand_pappy = grand_pappy.parent
 
     def left_left(self, root):
         """Left-left case - Right rotation."""
@@ -271,8 +276,11 @@ class BST(object):
                 right.parent.right == center
                 right.parent.right_depth += -1
 
+        left.left = None
+        left.parent = center
         left.right = None
-        left.right_depth += -1
+        left.right_depth = 0
+        left.left_depth = 0
 
         center.left = left
         center.parent = right.parent
@@ -280,9 +288,11 @@ class BST(object):
         center.right_depth = 1
         center.left_depth = 1
 
-        right.parent = center
         right.left = None
-        right.left_depth += -2
+        right.right = None
+        right.parent = center
+        right.left_depth = 0
+        right.right_depth = 0
 
     def right_left(self, root):
         """Riiight. Leeefft. Riiight. Leeefftt."""
@@ -295,15 +305,10 @@ class BST(object):
         else:
             if left.parent.left == left:
                 left.parent.left == center
-                right.parent.left_depth += 1
-            elif right.parent.right == right:
-                left.parent.right == right
+                left.parent.left_depth += 1
+            elif left.parent.right == right:
                 left.parent.right == center
                 left.parent.right_depth += 1
-
-        left.right = None
-        left.parent = center
-        left.right_depth += -2
 
         center.left = left
         center.parent = left.parent
@@ -311,6 +316,25 @@ class BST(object):
         center.right_depth = 1
         center.left_depth = 1
 
+        left.right = None
+        left.parent = center
+        left.left = None
+        left.right_depth = 0
+        left.left_depth = 0
+
         right.right = None
         right.parent = center
-        right.left_depth += -1
+        right.left = None
+        right.left_depth = 1
+        right.right_depth = 1
+
+    def depth_adjust(self, child, depth):
+        """Adjust the depth when a child is added."""
+        depth += 1
+        parent = child.parent
+        if parent:
+                if parent.right == child:
+                    parent.right_depth = max(parent.right_depth, depth)
+                elif parent.left == child:
+                    parent.left_depth = max(parent.left_depth, depth)
+                self.depth_adjust(parent, depth)
