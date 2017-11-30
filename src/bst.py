@@ -242,11 +242,14 @@ class BST(object):
     def left_left(self, root):
         """Left-left case - Right rotation."""
         pivot = root.left
+        pivot.parent = root.parent
         root.parent = pivot
         root.left = None
         pivot.right = root
         pivot.right_depth += 1
         root.left_depth += -2
+        if not pivot.parent:
+            self.root = pivot
 
     def right_right(self, root):
         """Right-right case - Left rotation."""
@@ -325,8 +328,8 @@ class BST(object):
         right.right = None
         right.parent = center
         right.left = None
-        right.left_depth = 1
-        right.right_depth = 1
+        right.left_depth = 0
+        right.right_depth = 0
 
     def depth_adjust(self, child, depth):
         """Adjust the depth when a child is added."""
