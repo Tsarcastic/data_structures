@@ -80,15 +80,30 @@ def test_iterable02():
     b = BST([19, 25, 31])
     assert b.root.value == 25
 
+def test_left_left():
+    """Left left works."""
+    from bst import BST
+    b = BST([10, 9, 8])
+    assert b.root.value == 9
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 1
 
-def test_fancier_restructure(fancier_setup):
+    assert b.root.left.value == 8
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+
+    assert b.root.right.value == 10
+    assert b.root.left_depth == 0
+    assert b.root.right_depth == 0
+
+#def test_fancier_restructure(fancier_setup):
     """To make sure everything is being built correctly."""
-    assert fancier_setup.root.value == 100
+    #assert fancier_setup.root.value == 100
 
 
-def test_restructure04(fancier_setup):
+#def test_restructure04(fancier_setup):
     """Test the restructure method on fancy_setup tree."""
-    assert fancier_setup.root.right.value == 100
+    #assert fancier_setup.root.right.value == 100
 
 
 #def test_restructure05(fancier_setup):
