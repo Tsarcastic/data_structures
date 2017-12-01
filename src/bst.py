@@ -51,8 +51,8 @@ class BST(object):
                     if not cur.right:
                         cur.right = new_node
                         new_node.parent = cur
-                        self.depth_adjust(new_node, 0)
-                        self.balancing(new_node)
+                        self.neo_depth_adjust(new_node)
+                        self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.right
@@ -62,8 +62,8 @@ class BST(object):
                         # self.balancing(new_node, 0)
                         cur.left = new_node
                         new_node.parent = cur
-                        self.depth_adjust(new_node, 0)
-                        self.balancing(new_node)
+                        self.neo_depth_adjust(new_node)
+                        self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.left
@@ -341,3 +341,22 @@ class BST(object):
                 elif parent.left == child:
                     parent.left_depth = max(parent.left_depth, depth)
                 self.depth_adjust(parent, depth)
+
+    def neo_depth_adjust(self, child):
+        """Giving this another go."""
+        parent = child.parent
+        if parent:
+            if parent.left == child:
+                parent.left_depth = 1
+            elif parent.right == child:
+                parent.right_depth = 1
+
+        while parent.parent:
+            grandparent = parent.parent
+            if grandparent.left == parent:
+                grandparent.left_depth = max(parent.left_depth, parent.right_depth) + 1
+            elif grandparent.right == parent:
+                grandparent.right_depth = max(parent.left_depth, parent.right_depth) + 1
+            if abs(grandparent.right_depth - grandparent.left_depth) == 2:
+                self.balancing(parent)
+            parent = grandparent

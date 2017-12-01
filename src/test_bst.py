@@ -180,7 +180,7 @@ def test_building_to_fancier():
     assert b.root.right.left.right_depth == 0
     assert b.root.right.left.left_depth == 0     
 
-def test_building_to_fancier():
+def test_building_to_fancier02():
     from bst import BST
     b = BST()
     b.insert(100)
@@ -194,12 +194,19 @@ def test_building_to_fancier():
     assert b.root.left.value == 100
     assert b.root.left.left_depth == 0
     assert b.root.left.right_depth == 0
+
+    #assert b.root.right.left_depth == 2    
     assert b.root.right.value == 190
-    assert b.root.right.right_depth == 1
-    assert b.root.right.left_depth == 1
-    assert b.root.right.left.value == 180
-    assert b.root.right.left.right_depth == 0
-    assert b.root.right.left.left_depth == 0 
+
+    #assert b.root.right.left_depth == 1
+    #assert b.root.right.left.value == 180
+    #assert b.root.right.left.right_depth == 0
+    #assert b.root.right.left.left_depth == 0 
+   # assert b.root.right.right.value == 200
+    #assert b.root.right.right.right_depth == 0
+    #assert b.root.right.right.left_depth == 0 
+
+
 #def test_restructure04(fancier_setup):
     """Test the restructure method on fancy_setup tree."""
     #assert fancier_setup.root.right.value == 100
