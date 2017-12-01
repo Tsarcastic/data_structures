@@ -240,12 +240,36 @@ class BST(object):
                     self.right_left(grand_pappy)
             grand_pappy = grand_pappy.parent
 
+    def new_balance(self, parent):
+        """Balancing method using single rotations."""
+        grand_pappy = parent.parent
+        g_bal = grand_pappy.right_depth - grand_pappy.left_depth
+        par_bal = parent.right_depth - parent.left_depth
+        if g_bal == -2:
+            if par_bal == -1:
+                self.right_rotation(grand_pappy)
+            else:
+                self.left_rotation(parent)
+                self.right_rotation(grand_pappy)
+
+        elif g_bal == 2:
+            if par_bal == 1:
+                self.left_rotation(grand_pappy)
+            else:
+                self.right_rotation(parent)
+                self.right_rotation(grand_pappy)
+
+
     def right_rotation(self, root):
         """Left-left case - Right rotation."""
         pivot = root.left
         pivot.parent = root.parent
         if not pivot.parent:
             self.root = pivot
+        elif pivot.parent.left == root:
+            pivot.parent.left = pivot
+        elif pivot.parent.right == root:
+            pivot.parent.right == pivot
         root.parent = pivot
         root.left = pivot.right
         if root.left:
@@ -262,6 +286,10 @@ class BST(object):
         pivot.parent = root.parent
         if not pivot.parent:
             self.root = pivot
+        elif pivot.parent.left == root:
+            pivot.parent.left = pivot
+        elif pivot.parent.right == root:
+            pivot.parent.right == pivot        
         root.parent = pivot
         root.right = pivot.left
         if root.right:
