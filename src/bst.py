@@ -226,42 +226,51 @@ class BST(object):
         grand_pappy = parent.parent
         while grand_pappy:
             balance = grand_pappy.right_depth - grand_pappy.left_depth
+            parbal = parent.right_depth - parent.left_depth 
             if balance == -2:
-                if grand_pappy.left and grand_pappy.left.left:
-                    self.left_left(grand_pappy)
+                if parbal == -1:
+                    self.right_rotation(grand_pappy)
                 else:
                     self.left_right(grand_pappy)
 
             elif balance == 2:
-                if grand_pappy.right and grand_pappy.right.right:
-                    self.right_right(grand_pappy)
+                if parbal == 1:
+                    self.left_rotation(grand_pappy)
                 else:
                     self.right_left(grand_pappy)
             grand_pappy = grand_pappy.parent
 
-    def left_left(self, root):
+    def right_rotation(self, root):
         """Left-left case - Right rotation."""
         pivot = root.left
         pivot.parent = root.parent
-        root.parent = pivot
-        root.left = None
-        pivot.right = root
-        pivot.right_depth += 1
-        root.left_depth += -2
         if not pivot.parent:
             self.root = pivot
+        root.parent = pivot
+        root.left = pivot.right
+        if root.left:
+            root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
+        else:
+            root.left_depth = 0
+        pivot.right = root
+        pivot.right_depth = max(root.left_depth, root.right_depth) + 1
 
-    def right_right(self, root):
+
+    def left_rotation(self, root):
         """Right-right case - Left rotation."""
         pivot = root.right
         pivot.parent = root.parent
-        root.parent = pivot
-        root.right = None
-        pivot.left = root
-        pivot.left_depth += 1
-        root.right_depth += -2
         if not pivot.parent:
             self.root = pivot
+        root.parent = pivot
+        root.right = pivot.left
+        if root.right:
+            root.right_depth = max(root.right.left_depth, root.right.right_depth) + 1
+        else:
+            root.right_depth = 0
+        pivot.left = root
+        pivot.left_depth  = max(root.left_depth, root.right_depth) + 1
+
 
     def left_right(self, root):
         """. It's just a jump to the left. And a step to the ri-i-i-ight."""
