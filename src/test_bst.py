@@ -6,7 +6,7 @@ import pytest
 @pytest.fixture
 def basic_setup():
     """A basic setup with two numbers."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(9)
     b.insert(10)
@@ -16,7 +16,7 @@ def basic_setup():
 @pytest.fixture
 def fancy_setup():
     """A more complicated setup."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(100)
     b.insert(90)
@@ -31,7 +31,7 @@ def fancy_setup():
 @pytest.fixture
 def fancier_setup():
     """Ooooh, fancy."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(100)
     b.insert(200)
@@ -44,7 +44,7 @@ def fancier_setup():
 @pytest.fixture
 def fanciest_setup():
     """Ooooh, fancy."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST()
     b.insert(100)
     b.insert(70)
@@ -57,32 +57,32 @@ def fanciest_setup():
     return b
 
 
-def test_bst_root(basic_setup):
+def test_bst_experimental_root(basic_setup):
     """9 is in the tree."""
     assert basic_setup.root.value == 9
 
 
-def test_bst_1layer(basic_setup):
+def test_bst_experimental_1layer(basic_setup):
     """10 is the immediate right child of root."""
     assert basic_setup.root.right.value == 10
 
 
 #def test_iterable01():
     """BST will construct from an iterable."""
-    #from bst import BST
+    #from bst_experimental import BST
     #b = BST([19, 25, 31, 16])
     #assert b.root.value == 25
 
 
 def test_iterable02():
     """Will maintain form."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST([19, 25, 31])
     assert b.root.value == 25
 
 def test_left_left():
     """Left left works."""
-    from bst import BST
+    from bst_experimental import BST
     b = BST([10, 9, 8])
     assert b.root.value == 9
     assert b.root.left_depth == 1

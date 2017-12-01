@@ -51,6 +51,7 @@ class BST(object):
                     if not cur.right:
                         cur.right = new_node
                         new_node.parent = cur
+                        self.depth_adjust(new_node)
                         completed = True
                     else:
                         cur = cur.right
@@ -59,8 +60,7 @@ class BST(object):
                     if not cur.left:
                         cur.left = new_node
                         new_node.parent = cur
-                        self.depth_adjust(new_node, 0)
-                        self.balancing(new_node)
+                        self.depth_adjust(new_node)
                         completed = True
                     else:
                         cur = cur.left
@@ -75,7 +75,10 @@ class BST(object):
 
         root.left = pivot.right
         root.parent = pivot
-        root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
+        if root.left:
+            root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
+        else:
+            root.left_depth = 0
 
         pivot.right = root
         pivot.right_depth = max(root.left_depth, root.right_depth) + 1
@@ -95,16 +98,34 @@ class BST(object):
         pivot.left = root
         pivot.left_depth = max(root.left_depth, root.right_depth) + 1
 
+    def balance(self, node):
+        """If a node has a balance of 2 or -2 you flip it and reverse it."""
+        return node.right_depth - node.left_depth
+
+    def adjust(self, child):
+        """Flip it and reverse it."""
+        parent = child.parent
+        grandparent = parent.parent
+        if self.balance(grandparent) == -2:
+            if self.balance(parent) == -1:
+                self.right_rotation(grandparent)
+            else:
+                self.left_rotation(parent)
+                self.right_rotation(grandparent)
 
     def depth_adjust(self, child):
-        """Adjusts the depth when a new child is added."""
-        while child.parent:
-            balance = max
-        if parent.right == child:
-                    parent.right_depth = max(parent.right_depth, depth)
-                elif parent.left == child:
-                    parent.left_depth = max(parent.left_depth, depth)
-
+        """Adjust the depth when a new child is added."""
+        while child.parent.parent:
+            if child.parent.right == child:
+                child.parent.right_depth = max(child.left_depth, child.right_depth) + 1
+            elif child.parent.left == child:
+                child.parent.left_depth = max(child.left_depth, child.right_depth) + 1
+            if child.parent.parent.right == child.parent:
+                child.parent.parent.right_depth = max(child.parent.left_depth, child.parent.right_depth) + 1
+            elif child.parent.parent.left == child.parent:
+                child.parent.parent.left_depth = max(child.parent.left_depth, child.parent.right_depth) + 1
+            self.adjust(child.parent.parent)
+            child = child.parent
 
 
     def contains(self, val):
@@ -261,17 +282,3 @@ class BST(object):
                     cur = cur.right
 
 
-
-
-
-    def depth_adjust(self, child, depth):
-        """Adjust the depth when a child is added."""
-        depth += 1
-        parent = child.parent
-        if parent:
-                if parent.right == child:
-                    parent.right_depth = max(parent.right_depth, depth)
-                elif parent.left == child:
-                    parent.left_depth = max(parent.left_depth, depth)
-                
-                self.depth_adjust(parent, depth)
