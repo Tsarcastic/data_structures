@@ -147,13 +147,14 @@ class BST(object):
     def left_rotation(self, root):
         """Right-right case - Left rotation."""
         pivot = root.right
+        base = root.parent
         pivot.parent = root.parent
-        if not pivot.parent:
+        if pivot.parent is None:
             self.root = pivot
-        elif pivot.parent.left is root:
-            pivot.parent.left = pivot
-        elif pivot.parent.right is root:
-            pivot.parent.right = pivot
+        if baset.left is root:
+            base.left = pivot
+        elif base.right is root:
+            base.right = pivot
         root.parent = pivot
         root.right = pivot.left
         if root.right:

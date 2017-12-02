@@ -52,7 +52,6 @@ class BST(object):
                         cur.right = new_node
                         new_node.parent = cur
                         self.neo_depth_adjust(new_node)
-                        #self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.right
@@ -62,7 +61,6 @@ class BST(object):
                         cur.left = new_node
                         new_node.parent = cur
                         self.neo_depth_adjust(new_node)
-                        #self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.left
@@ -90,7 +88,6 @@ class BST(object):
         if grand_pappy:
             balance = grand_pappy.right_depth - grand_pappy.left_depth
             parbal = parent.right_depth - parent.left_depth
-            import pdb; pdb.set_trace()
             if balance == -2:
                 if parbal == -1:
                     self.right_rotation(grand_pappy)
@@ -122,19 +119,17 @@ class BST(object):
                 self.right_rotation(parent)
                 self.right_rotation(grand_pappy)
 
-
     def right_rotation(self, root):
         """Left-left case - Right rotation."""
         pivot = root.left
-        pivot.parent = root.parent
-        if not root.parent:
+        base = root.parent
+        pivot.parent = base
+        if pivot.parent is None:
             self.root = pivot
-            pivot.parent = None
-        elif root.parent.left == root:
-            root.parent.left = pivot
-        elif root.parent.right == root:
-            pivot.parent.right == pivot
-        root.parent = pivot
+        elif base.left is root:
+            base.left = pivot
+        elif base.right is root:
+            base.right = pivot
         root.left = pivot.right
         if root.left:
             root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
@@ -143,17 +138,17 @@ class BST(object):
         pivot.right = root
         pivot.right_depth = max(root.left_depth, root.right_depth) + 1
 
-
     def left_rotation(self, root):
         """Right-right case - Left rotation."""
         pivot = root.right
+        base = root.parent
         pivot.parent = root.parent
-        if not pivot.parent:
+        if pivot.parent is None:
             self.root = pivot
-        elif pivot.parent.left == root:
-            pivot.parent.left = pivot
-        elif pivot.parent.right == root:
-            pivot.parent.right == pivot
+        elif base.left is root:
+            base.left = pivot
+        elif base.right is root:
+            base.right = pivot
         root.parent = pivot
         root.right = pivot.left
         if root.right:
@@ -161,9 +156,7 @@ class BST(object):
         else:
             root.right_depth = 0
         pivot.left = root
-        pivot.left_depth  = max(root.left_depth, root.right_depth) + 1
-
-
+        pivot.left_depth = max(root.left_depth, root.right_depth) + 1
 
     def left_right(self, root):
         """. It's just a jump to the left. And a step to the ri-i-i-ight."""
@@ -233,17 +226,6 @@ class BST(object):
         right.left_depth = 0
         right.right_depth = 0
 
-    def depth_adjust(self, child, depth):
-        """Adjust the depth when a child is added."""
-        depth += 1
-        parent = child.parent
-        if parent:
-                if parent.right == child:
-                    parent.right_depth = max(parent.right_depth, depth)
-                elif parent.left == child:
-                    parent.left_depth = max(parent.left_depth, depth)
-                self.depth_adjust(parent, depth)
-
     def neo_depth_adjust(self, child):
         """Giving this another go."""
         parent = child.parent
@@ -260,14 +242,6 @@ class BST(object):
             elif grandparent.right == parent:
                 grandparent.right_depth = max(parent.left_depth, parent.right_depth) + 1
             self.balancing(parent)
-            while parent:
-                if parent.left == child:
-                    parent.left_depth = max(child.left_depth, child.right_depth) + 1
-                elif parent.right == child:
-                    parent.right_depth = max(child.left_depth, child.right_depth) + 1
-                child = parent
-                parent = parent.parent
-
 
     def in_order(self, node):
         """Return values in order traversal."""
