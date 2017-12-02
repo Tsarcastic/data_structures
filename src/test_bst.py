@@ -187,21 +187,23 @@ def test_building_to_fancier02():
     b.insert(200)
     b.insert(175)
     b.insert(190)
-    b.insert(180)
+    #b.insert(180)
     assert b.root.value == 175
     assert b.root.left_depth == 1
     assert b.root.right_depth == 2
+
     assert b.root.left.value == 100
     assert b.root.left.left_depth == 0
     assert b.root.left.right_depth == 0
 
-    #assert b.root.right.left_depth == 2    
-    assert b.root.right.value == 190
-
-    #assert b.root.right.left_depth == 1
-    #assert b.root.right.left.value == 180
-    #assert b.root.right.left.right_depth == 0
-    #assert b.root.right.left.left_depth == 0 
+   
+    assert b.root.right.value == 200
+    assert b.root.right.left_depth == 1 
+    assert b.root.right.right_depth == 0
+    
+    assert b.root.right.left.value == 190
+    assert b.root.right.left.right_depth == 0
+    assert b.root.right.left.left_depth == 0 
    # assert b.root.right.right.value == 200
     #assert b.root.right.right.right_depth == 0
     #assert b.root.right.right.left_depth == 0 
