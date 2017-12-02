@@ -52,18 +52,17 @@ class BST(object):
                         cur.right = new_node
                         new_node.parent = cur
                         self.neo_depth_adjust(new_node)
-                        self.balancing(cur)
+                        #self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.right
 
                 elif new_node.key < cur.key:
                     if not cur.left:
-                        # self.balancing(new_node, 0)
                         cur.left = new_node
                         new_node.parent = cur
                         self.neo_depth_adjust(new_node)
-                        self.balancing(cur)
+                        #self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.left
@@ -85,16 +84,190 @@ class BST(object):
                 else:
                     return False
 
-    def depth_side(self, val, depth):
-        """Adjust depth & balance."""
-        if val > self.root.value:
-            self.right_depth = max(self.right_depth, depth)
-            self.depth = max(self.right_depth, self.left_depth)
-            self.balance = self.right_depth - self.left_depth
+    def balancing(self, parent):
+        """Adjust balance for the tree."""
+        grand_pappy = parent.parent
+        if grand_pappy:
+            balance = grand_pappy.right_depth - grand_pappy.left_depth
+            parbal = parent.right_depth - parent.left_depth
+            import pdb; pdb.set_trace()
+            if balance == -2:
+                if parbal == -1:
+                    self.right_rotation(grand_pappy)
+                else:
+                    self.left_right(grand_pappy)
+
+            elif balance == 2:
+                if parbal == 1:
+                    self.left_rotation(grand_pappy)
+                else:
+                    self.right_left(grand_pappy)
+
+    def new_balance(self, parent):
+        """Balancing method using single rotations."""
+        grand_pappy = parent.parent
+        g_bal = grand_pappy.right_depth - grand_pappy.left_depth
+        par_bal = parent.right_depth - parent.left_depth
+        if g_bal == -2:
+            if par_bal == -1:
+                self.right_rotation(grand_pappy)
+            else:
+                self.left_rotation(parent)
+                self.right_rotation(grand_pappy)
+
+        elif g_bal == 2:
+            if par_bal == 1:
+                self.left_rotation(grand_pappy)
+            else:
+                self.right_rotation(parent)
+                self.right_rotation(grand_pappy)
+
+
+    def right_rotation(self, root):
+        """Left-left case - Right rotation."""
+        pivot = root.left
+        pivot.parent = root.parent
+        if not root.parent:
+            self.root = pivot
+            pivot.parent = None
+        elif root.parent.left == root:
+            root.parent.left = pivot
+        elif root.parent.right == root:
+            pivot.parent.right == pivot
+        root.parent = pivot
+        root.left = pivot.right
+        if root.left:
+            root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
         else:
-            self.left_depth = max(self.left_depth, depth)
-            self.depth = max(self.right_depth, self.left_depth)
-            self.balance = self.right_depth - self.left_depth
+            root.left_depth = 0
+        pivot.right = root
+        pivot.right_depth = max(root.left_depth, root.right_depth) + 1
+
+
+    def left_rotation(self, root):
+        """Right-right case - Left rotation."""
+        pivot = root.right
+        pivot.parent = root.parent
+        if not pivot.parent:
+            self.root = pivot
+        elif pivot.parent.left == root:
+            pivot.parent.left = pivot
+        elif pivot.parent.right == root:
+            pivot.parent.right == pivot
+        root.parent = pivot
+        root.right = pivot.left
+        if root.right:
+            root.right_depth = max(root.right.left_depth, root.right.right_depth) + 1
+        else:
+            root.right_depth = 0
+        pivot.left = root
+        pivot.left_depth  = max(root.left_depth, root.right_depth) + 1
+
+
+
+    def left_right(self, root):
+        """. It's just a jump to the left. And a step to the ri-i-i-ight."""
+        right = root
+        center = root.left.right
+        left = root.left
+
+        if right == self.root:
+            self.root = center
+        else:
+            if right.parent.left == right:
+                right.parent.left == center
+                right.parent.left_depth += -1
+            elif right.parent.right == right:
+                right.parent.right == center
+                right.parent.right_depth += -1
+
+        left.left = None
+        left.parent = center
+        left.right = None
+        left.right_depth = 0
+        left.left_depth = 0
+
+        center.left = left
+        center.parent = right.parent
+        center.right = right
+        center.right_depth = 1
+        center.left_depth = 1
+
+        right.left = None
+        right.right = None
+        right.parent = center
+        right.left_depth = 0
+        right.right_depth = 0
+
+    def right_left(self, root):
+        """Riiight. Leeefft. Riiight. Leeefftt."""
+        left = root
+        center = root.right.left
+        right = root.right
+
+        if left == self.root:
+            self.root = center
+        else:
+            if left.parent.left == left:
+                left.parent.left == center
+                left.parent.left_depth += 1
+            elif left.parent.right == right:
+                left.parent.right == center
+                left.parent.right_depth += 1
+
+        center.left = left
+        center.parent = left.parent
+        center.right = right
+        center.right_depth = 1
+        center.left_depth = 1
+
+        left.right = None
+        left.parent = center
+        left.left = None
+        left.right_depth = 0
+        left.left_depth = 0
+
+        right.right = None
+        right.parent = center
+        right.left = None
+        right.left_depth = 0
+        right.right_depth = 0
+
+    def depth_adjust(self, child, depth):
+        """Adjust the depth when a child is added."""
+        depth += 1
+        parent = child.parent
+        if parent:
+                if parent.right == child:
+                    parent.right_depth = max(parent.right_depth, depth)
+                elif parent.left == child:
+                    parent.left_depth = max(parent.left_depth, depth)
+                self.depth_adjust(parent, depth)
+
+    def neo_depth_adjust(self, child):
+        """Giving this another go."""
+        parent = child.parent
+        if parent:
+            if parent.left == child:
+                parent.left_depth = 1
+            elif parent.right == child:
+                parent.right_depth = 1
+
+        if parent.parent:
+            grandparent = parent.parent
+            if grandparent.left == parent:
+                grandparent.left_depth = max(parent.left_depth, parent.right_depth) + 1
+            elif grandparent.right == parent:
+                grandparent.right_depth = max(parent.left_depth, parent.right_depth) + 1
+            self.balancing(parent)
+            while parent:
+                if parent.left == child:
+                    parent.left_depth = max(child.left_depth, child.right_depth) + 1
+                elif parent.right == child:
+                    parent.right_depth = max(child.left_depth, child.right_depth) + 1
+                child = parent
+                parent = parent.parent
+
 
     def in_order(self, node):
         """Return values in order traversal."""
@@ -220,180 +393,3 @@ class BST(object):
                     completed = True
                 else:
                     cur = cur.right
-
-    def balancing(self, parent):
-        """Adjust balance for the tree."""
-        grand_pappy = parent.parent
-        while grand_pappy:
-            balance = grand_pappy.right_depth - grand_pappy.left_depth
-            parbal = parent.right_depth - parent.left_depth 
-            if balance == -2:
-                if parbal == -1:
-                    self.right_rotation(grand_pappy)
-                else:
-                    self.left_right(grand_pappy)
-
-            elif balance == 2:
-                if parbal == 1:
-                    self.left_rotation(grand_pappy)
-                else:
-                    self.right_left(grand_pappy)
-            grand_pappy = grand_pappy.parent
-
-    def new_balance(self, parent):
-        """Balancing method using single rotations."""
-        grand_pappy = parent.parent
-        g_bal = grand_pappy.right_depth - grand_pappy.left_depth
-        par_bal = parent.right_depth - parent.left_depth
-        if g_bal == -2:
-            if par_bal == -1:
-                self.right_rotation(grand_pappy)
-            else:
-                self.left_rotation(parent)
-                self.right_rotation(grand_pappy)
-
-        elif g_bal == 2:
-            if par_bal == 1:
-                self.left_rotation(grand_pappy)
-            else:
-                self.right_rotation(parent)
-                self.right_rotation(grand_pappy)
-
-
-    def right_rotation(self, root):
-        """Left-left case - Right rotation."""
-        pivot = root.left
-        pivot.parent = root.parent
-        if not pivot.parent:
-            self.root = pivot
-        elif pivot.parent.left == root:
-            pivot.parent.left = pivot
-        elif pivot.parent.right == root:
-            pivot.parent.right == pivot
-        root.parent = pivot
-        root.left = pivot.right
-        if root.left:
-            root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
-        else:
-            root.left_depth = 0
-        pivot.right = root
-        pivot.right_depth = max(root.left_depth, root.right_depth) + 1
-
-
-    def left_rotation(self, root):
-        """Right-right case - Left rotation."""
-        pivot = root.right
-        pivot.parent = root.parent
-        if not pivot.parent:
-            self.root = pivot
-        elif pivot.parent.left == root:
-            pivot.parent.left = pivot
-        elif pivot.parent.right == root:
-            pivot.parent.right == pivot        
-        root.parent = pivot
-        root.right = pivot.left
-        if root.right:
-            root.right_depth = max(root.right.left_depth, root.right.right_depth) + 1
-        else:
-            root.right_depth = 0
-        pivot.left = root
-        pivot.left_depth  = max(root.left_depth, root.right_depth) + 1
-
-
-    def left_right(self, root):
-        """. It's just a jump to the left. And a step to the ri-i-i-ight."""
-        right = root
-        center = root.left.right
-        left = root.left
-
-        if right == self.root:
-            self.root = center
-        else:
-            if right.parent.left == right:
-                right.parent.left == center
-                right.parent.left_depth += -1
-            elif right.parent.right == right:
-                right.parent.right == center
-                right.parent.right_depth += -1
-
-        left.left = None
-        left.parent = center
-        left.right = None
-        left.right_depth = 0
-        left.left_depth = 0
-
-        center.left = left
-        center.parent = right.parent
-        center.right = right
-        center.right_depth = 1
-        center.left_depth = 1
-
-        right.left = None
-        right.right = None
-        right.parent = center
-        right.left_depth = 0
-        right.right_depth = 0
-
-    def right_left(self, root):
-        """Riiight. Leeefft. Riiight. Leeefftt."""
-        left = root
-        center = root.right.left
-        right = root.right
-
-        if left == self.root:
-            self.root = center
-        else:
-            if left.parent.left == left:
-                left.parent.left == center
-                left.parent.left_depth += 1
-            elif left.parent.right == right:
-                left.parent.right == center
-                left.parent.right_depth += 1
-
-        center.left = left
-        center.parent = left.parent
-        center.right = right
-        center.right_depth = 1
-        center.left_depth = 1
-
-        left.right = None
-        left.parent = center
-        left.left = None
-        left.right_depth = 0
-        left.left_depth = 0
-
-        right.right = None
-        right.parent = center
-        right.left = None
-        right.left_depth = 0
-        right.right_depth = 0
-
-    def depth_adjust(self, child, depth):
-        """Adjust the depth when a child is added."""
-        depth += 1
-        parent = child.parent
-        if parent:
-                if parent.right == child:
-                    parent.right_depth = max(parent.right_depth, depth)
-                elif parent.left == child:
-                    parent.left_depth = max(parent.left_depth, depth)
-                self.depth_adjust(parent, depth)
-
-    def neo_depth_adjust(self, child):
-        """Giving this another go."""
-        parent = child.parent
-        if parent:
-            if parent.left == child:
-                parent.left_depth = 1
-            elif parent.right == child:
-                parent.right_depth = 1
-
-        while parent.parent:
-            grandparent = parent.parent
-            if grandparent.left == parent:
-                grandparent.left_depth = max(parent.left_depth, parent.right_depth) + 1
-            elif grandparent.right == parent:
-                grandparent.right_depth = max(parent.left_depth, parent.right_depth) + 1
-            if abs(grandparent.right_depth - grandparent.left_depth) == 2:
-                self.balancing(parent)
-            parent = grandparent
