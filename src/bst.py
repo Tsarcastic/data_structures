@@ -229,11 +229,15 @@ class BST(object):
     def neo_depth_adjust(self, child):
         """Giving this another go."""
         parent = child.parent
+        if child.left:
+            child.left_depth = max(child.left.left_depth, child.left.right_depth) + 1
+        if child.right:
+            child.right_depth = max(child.right.left_depth, child.right.right_depth) + 1
         if parent:
             if parent.left == child:
-                parent.left_depth = 1
+                parent.left_depth = max(child.left_depth, child.right_depth) + 1
             elif parent.right == child:
-                parent.right_depth = 1
+                parent.right_depth = max(child.left_depth, child.right_depth) + 1
 
         while parent.parent:
             grandparent = parent.parent
@@ -344,6 +348,7 @@ class BST(object):
         """Delete a node with the given value, or return no-op."""
         if self.root.value == value:
             self.root = self.restructure(self.root)
+            self.neo_depth_adjust(self.root)
             return
         cur = self.root
         completed = False
@@ -356,6 +361,7 @@ class BST(object):
                     raise ValueError('The BST does not contain that value')
                 elif cur.left.value == value:
                     cur.left = self.restructure(cur.left)
+                    self.neo_depth_adjust(cur.left)
                     completed = True
                 else:
                     cur = cur.left
@@ -365,6 +371,7 @@ class BST(object):
                     raise ValueError('The BST does not contain that')
                 if cur.right.value == value:
                     cur.right = self.restructure(cur.right)
+                    self.neo_depth_adjust(cur.right)
                     completed = True
                 else:
                     cur = cur.right

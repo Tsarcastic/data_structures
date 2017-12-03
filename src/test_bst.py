@@ -254,6 +254,7 @@ def test_building_to_fanciest01():
     assert b.root.right.right.left_depth == 0
     assert b.root.right.right.right_depth == 0
 
+
 def test_building_to_fanciest02():
     """Everything works up to inserting 150."""
     from bst import BST
@@ -287,14 +288,15 @@ def test_building_to_fanciest02():
 
     assert b.root.right.left.value == 100
     assert b.root.right.left.left_depth == 0
-    assert b.root.right.left.right_depth == 0    
+    assert b.root.right.left.right_depth == 0
 
     assert b.root.right.right.value == 200
     assert b.root.right.right.left_depth == 0
     assert b.root.right.right.right_depth == 0
 
+
 def test_building_to_fanciest03():
-    """Everything works up to inserting 150."""
+    """Everything works up to inserting 300."""
     from bst import BST
     b = BST()
     b.insert(100)
@@ -327,7 +329,7 @@ def test_building_to_fanciest03():
 
     assert b.root.right.left.value == 100
     assert b.root.right.left.left_depth == 0
-    assert b.root.right.left.right_depth == 0    
+    assert b.root.right.left.right_depth == 0
 
     assert b.root.right.right.value == 200
     assert b.root.right.right.left_depth == 0
@@ -336,3 +338,14 @@ def test_building_to_fanciest03():
     assert b.root.right.right.right.value == 300
     assert b.root.right.right.right.left_depth == 0
     assert b.root.right.right.right.right_depth == 0
+
+def test_delete_auto_adjust01(basic_setup):
+    basic_setup.insert(5)
+    basic_setup.delete(9)
+    assert basic_setup.root.value == 10
+    assert basic_setup.root.left_depth == 1
+    assert basic_setup.root.right_depth == 0
+
+    assert basic_setup.root.left.value == 5
+    assert basic_setup.root.left.left_depth == 0
+    assert basic_setup.root.left.right_depth == 0
