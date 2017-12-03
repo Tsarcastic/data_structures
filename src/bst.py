@@ -100,6 +100,29 @@ class BST(object):
                 else:
                     self.right_left(grand_pappy)
 
+    def del_balancing(self, node):
+        if node.left:
+            node.left_depth = max(node.left.left_depth, node.left.right_depth) + 1
+        else:
+            node.left_depth = 0
+        if node.right:
+            node.right_depth = max(child.right.left_depth, child.right.right_depth) + 1
+        else:
+            node.right_depth = 0
+        bal = node.right_depth - node.left_depth
+        if balance == -2:
+            if parbal == -1:
+                self.right_rotation(grand_pappy)
+            else:
+                self.left_right(grand_pappy)
+
+        elif balance == 2:
+            if parbal == 1:
+                self.left_rotation(grand_pappy)
+            else:
+                self.right_left(grand_pappy)
+        self.neo_depth_adjust(node)   
+
     def new_balance(self, parent):
         """Balancing method using single rotations."""
         grand_pappy = parent.parent
@@ -242,7 +265,6 @@ class BST(object):
                 parent.left_depth = max(child.left_depth, child.right_depth) + 1
             elif parent.right == child:
                 parent.right_depth = max(child.left_depth, child.right_depth) + 1
-
         while parent.parent:
             grandparent = parent.parent
             if grandparent.left == parent:
