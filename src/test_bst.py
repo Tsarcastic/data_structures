@@ -217,4 +217,73 @@ def test_building_to_fancier03():
 
     assert b.root.right.right.value == 200
     assert b.root.right.right.right_depth == 0
-    assert b.root.right.right.left_depth == 0 
+    assert b.root.right.right.left_depth == 0
+
+
+def test_building_to_fanciest01():
+    """Everything works up to inserting 200."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    assert b.root.value == 80
+    assert b.root.left_depth == 2
+    assert b.root.right_depth == 2
+
+    assert b.root.left.value == 60
+    assert b.root.left.left_depth == 1
+    assert b.root.left.right_depth == 1
+
+    assert b.root.left.left.value == 53
+    assert b.root.left.left.left_depth == 0
+    assert b.root.left.left.right_depth == 0
+
+    assert b.root.left.right.value == 70
+    assert b.root.left.right.left_depth == 0
+    assert b.root.left.right.right_depth == 0
+
+    assert b.root.right.value == 100
+    assert b.root.right.left_depth == 0
+    assert b.root.right.right_depth == 1
+
+    assert b.root.right.right.value == 200
+    assert b.root.right.right.left_depth == 0
+    assert b.root.right.right.right_depth == 0
+
+def test_building_to_fanciest02():
+    """Everything works up to inserting 200."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    assert b.root.value == 80
+    assert b.root.left_depth == 2
+    assert b.root.right_depth == 2
+
+    assert b.root.left.value == 60
+    assert b.root.left.left_depth == 1
+    assert b.root.left.right_depth == 1
+
+    assert b.root.left.left.value == 53
+    assert b.root.left.left.left_depth == 0
+    assert b.root.left.left.right_depth == 0
+
+    assert b.root.left.right.value == 70
+    assert b.root.left.right.left_depth == 0
+    assert b.root.left.right.right_depth == 0
+
+    assert b.root.right.value == 100
+    assert b.root.right.left_depth == 0
+    assert b.root.right.right_depth == 1
+
+    assert b.root.right.right.value == 200
+    assert b.root.right.right.left_depth == 0
+    assert b.root.right.right.right_depth == 0
