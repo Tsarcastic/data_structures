@@ -198,13 +198,13 @@ class BST(object):
         center = root.right.left
         right = root.right
 
-        if left is self.root:
+        if left.parent is None:
             self.root = center
         else:
             if left.parent.left is left:
                 left.parent.left = center
                 left.parent.left_depth += 1
-            elif left.parent.right is right:
+            elif left.parent.right is left:
                 left.parent.right = center
                 left.parent.right_depth += 1
 
