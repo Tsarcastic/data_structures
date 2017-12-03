@@ -349,3 +349,31 @@ def test_delete_auto_adjust01(basic_setup):
     assert basic_setup.root.left.value == 5
     assert basic_setup.root.left.left_depth == 0
     assert basic_setup.root.left.right_depth == 0
+
+def test_delete_auto_adjust02(fancier_setup):
+    fancier_setup.delete(190)
+    assert fancier_setup.root.value == 175
+    assert fancier_setup.root.left_depth == 1
+    assert fancier_setup.root.right_depth == 2
+
+    assert fancier_setup.root.right.value == 200
+    assert fancier_setup.root.right.left_depth == 1
+    assert fancier_setup.root.right.right_depth == 0
+
+    assert fancier_setup.root.right.left.value == 180
+    assert fancier_setup.root.right.left.left_depth == 0
+    assert fancier_setup.root.right.left.right_depth == 0
+
+def test_delete_auto_adjust02(fancier_setup):
+    fancier_setup.delete(175)
+    assert fancier_setup.root.value == 180
+    assert fancier_setup.root.left_depth == 1
+    assert fancier_setup.root.right_depth == 2
+
+    assert fancier_setup.root.right.value == 190
+    assert fancier_setup.root.right.left_depth == 0
+    assert fancier_setup.root.right.right_depth == 1
+
+    assert fancier_setup.root.right.right.value == 200
+    assert fancier_setup.root.right.right.left_depth == 0
+    assert fancier_setup.root.right.right.right_depth == 0

@@ -231,8 +231,12 @@ class BST(object):
         parent = child.parent
         if child.left:
             child.left_depth = max(child.left.left_depth, child.left.right_depth) + 1
+        else:
+            child.left_depth = 0
         if child.right:
             child.right_depth = max(child.right.left_depth, child.right.right_depth) + 1
+        else:
+            child.right_depth = 0
         if parent:
             if parent.left == child:
                 parent.left_depth = max(child.left_depth, child.right_depth) + 1
@@ -311,6 +315,7 @@ class BST(object):
                 tracker.left = replacement.right
                 replacement.left = cur.left
                 replacement.right = cur.right
+                self.neo_depth_adjust(tracker)
                 return replacement
 
         else:
@@ -327,6 +332,7 @@ class BST(object):
                     replacement = tracker.right
                     tracker.right = replacement.left
                     replacement.left = cur.left
+                    self.neo_depth_adjust(tracker)
                     return replacement
 
             else:
@@ -342,6 +348,7 @@ class BST(object):
                     replacement = tracker.left
                     tracker.left = replacement.right
                     replacement.right = cur.right
+                    self.neo_depth_adjust(tracker)
                     return replacement
 
     def delete(self, value):
@@ -368,7 +375,7 @@ class BST(object):
 
             else:
                 if not cur.right:
-                    raise ValueError('The BST does not contain that')
+                    raise ValueError('The BST does not contain that value')
                 if cur.right.value == value:
                     cur.right = self.restructure(cur.right)
                     self.neo_depth_adjust(cur.right)
