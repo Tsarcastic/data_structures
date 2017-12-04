@@ -106,7 +106,7 @@ class BST(object):
         else:
             node.left_depth = 0
         if node.right:
-            node.right_depth = max(child.right.left_depth, child.right.right_depth) + 1
+            node.right_depth = max(node.right.left_depth, node.right.right_depth) + 1
         else:
             node.right_depth = 0
         bal = node.right_depth - node.left_depth
@@ -391,6 +391,8 @@ class BST(object):
                 elif cur.left.value == value:
                     cur.left = self.restructure(cur.left)
                     self.neo_depth_adjust(cur.left)
+                    if cur.right:
+                        self.balancing(cur.right)
                     completed = True
                 else:
                     cur = cur.left
@@ -401,6 +403,8 @@ class BST(object):
                 if cur.right.value == value:
                     cur.right = self.restructure(cur.right)
                     self.neo_depth_adjust(cur.right)
+                    if cur.left:
+                        self.balancing(cur.left)
                     completed = True
                 else:
                     cur = cur.right

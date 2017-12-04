@@ -391,3 +391,7 @@ def test_delete_auto_adjust04(fanciest_setup):
     assert fanciest_setup.root.right.value == 150
     assert fanciest_setup.root.right.right_depth == 2
     assert fanciest_setup.root.right.left_depth == 0
+
+    assert fanciest_setup.root.right.right.value == 200
+    assert fanciest_setup.root.right.right_depth == 1
+    assert fanciest_setup.root.right.left_depth == 0
