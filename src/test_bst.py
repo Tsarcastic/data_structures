@@ -395,3 +395,4 @@ def test_delete_auto_adjust04(fanciest_setup):
     assert fanciest_setup.root.right.right.value == 200
     assert fanciest_setup.root.right.right_depth == 1
     assert fanciest_setup.root.right.left_depth == 0
+    #This one is not working correctly. BST won't adjust deleted nodes parents correctly.
