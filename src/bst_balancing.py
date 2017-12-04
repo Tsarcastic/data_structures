@@ -52,6 +52,7 @@ class BST(object):
                         cur.right = new_node
                         new_node.parent = cur
                         self.neo_depth_adjust(new_node)
+                        #self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.right
@@ -61,6 +62,7 @@ class BST(object):
                         cur.left = new_node
                         new_node.parent = cur
                         self.neo_depth_adjust(new_node)
+                        #self.balancing(cur)
                         completed = True
                     else:
                         cur = cur.left
@@ -84,10 +86,10 @@ class BST(object):
 
     def balancing(self, parent):
         """Adjust balance for the tree."""
-        grand_pappy = parent.parent
+        grand_pappy = parent.parent    
         if grand_pappy:
             balance = grand_pappy.right_depth - grand_pappy.left_depth
-            parbal = parent.right_depth - parent.left_depth
+            parbal = parent.right_depth - parent.left_depth 
             if balance == -2:
                 if parbal == -1:
                     self.right_rotation(grand_pappy)
@@ -99,29 +101,6 @@ class BST(object):
                     self.left_rotation(grand_pappy)
                 else:
                     self.right_left(grand_pappy)
-
-    def del_balancing(self, node):
-        if node.left:
-            node.left_depth = max(node.left.left_depth, node.left.right_depth) + 1
-        else:
-            node.left_depth = 0
-        if node.right:
-            node.right_depth = max(node.right.left_depth, node.right.right_depth) + 1
-        else:
-            node.right_depth = 0
-        bal = node.right_depth - node.left_depth
-        if balance == -2:
-            if parbal == -1:
-                self.right_rotation(grand_pappy)
-            else:
-                self.left_right(grand_pappy)
-
-        elif balance == 2:
-            if parbal == 1:
-                self.left_rotation(grand_pappy)
-            else:
-                self.right_left(grand_pappy)
-        self.neo_depth_adjust(node)   
 
     def new_balance(self, parent):
         """Balancing method using single rotations."""
@@ -142,17 +121,20 @@ class BST(object):
                 self.right_rotation(parent)
                 self.right_rotation(grand_pappy)
 
+
     def right_rotation(self, root):
-        """Left-left case - Right rotation."""
-        pivot = root.left
+        """Left-left case - Right rotation."""  
+        pivot = root.left 
         base = root.parent
         pivot.parent = base
         if pivot.parent is None:
-            self.root = pivot
-        elif base.left is root:
+            self.root = pivot  
+        if base.left is root:
             base.left = pivot
-        elif base.right is root:
+        #import pdb; pdb.set_trace()  
+        if base.right is root:
             base.right = pivot
+        #import pdb; pdb.set_trace()  
         root.left = pivot.right
         if root.left:
             root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
@@ -161,6 +143,7 @@ class BST(object):
         pivot.right = root
         pivot.right_depth = max(root.left_depth, root.right_depth) + 1
 
+
     def left_rotation(self, root):
         """Right-right case - Left rotation."""
         pivot = root.right
@@ -168,7 +151,7 @@ class BST(object):
         pivot.parent = root.parent
         if pivot.parent is None:
             self.root = pivot
-        elif base.left is root:
+        if baset.left is root:
             base.left = pivot
         elif base.right is root:
             base.right = pivot
@@ -179,7 +162,9 @@ class BST(object):
         else:
             root.right_depth = 0
         pivot.left = root
-        pivot.left_depth = max(root.left_depth, root.right_depth) + 1
+        pivot.left_depth  = max(root.left_depth, root.right_depth) + 1
+
+
 
     def left_right(self, root):
         """. It's just a jump to the left. And a step to the ri-i-i-ight."""
@@ -187,14 +172,14 @@ class BST(object):
         center = root.left.right
         left = root.left
 
-        if right.parent is None:
+        if right == self.root:
             self.root = center
         else:
-            if right.parent.left is right:
-                right.parent.left = center
+            if right.parent.left == right:
+                right.parent.left == center
                 right.parent.left_depth += -1
-            elif right.parent.right is right:
-                right.parent.right = center
+            elif right.parent.right == right:
+                right.parent.right == center
                 right.parent.right_depth += -1
 
         left.left = None
@@ -221,14 +206,14 @@ class BST(object):
         center = root.right.left
         right = root.right
 
-        if left.parent is None:
+        if left == self.root:
             self.root = center
         else:
-            if left.parent.left is left:
-                left.parent.left = center
+            if left.parent.left == left:
+                left.parent.left == center
                 left.parent.left_depth += 1
-            elif left.parent.right is left:
-                left.parent.right = center
+            elif left.parent.right == right:
+                left.parent.right == center
                 left.parent.right_depth += 1
 
         center.left = left
@@ -252,27 +237,19 @@ class BST(object):
     def neo_depth_adjust(self, child):
         """Giving this another go."""
         parent = child.parent
-        if child.left:
-            child.left_depth = max(child.left.left_depth, child.left.right_depth) + 1
-        else:
-            child.left_depth = 0
-        if child.right:
-            child.right_depth = max(child.right.left_depth, child.right.right_depth) + 1
-        else:
-            child.right_depth = 0
         if parent:
             if parent.left == child:
-                parent.left_depth = max(child.left_depth, child.right_depth) + 1
+                parent.left_depth = 1
             elif parent.right == child:
-                parent.right_depth = max(child.left_depth, child.right_depth) + 1
-        while parent.parent:
+                parent.right_depth = 1
+
+        if parent.parent:
             grandparent = parent.parent
             if grandparent.left == parent:
                 grandparent.left_depth = max(parent.left_depth, parent.right_depth) + 1
             elif grandparent.right == parent:
                 grandparent.right_depth = max(parent.left_depth, parent.right_depth) + 1
             self.balancing(parent)
-            parent = grandparent
 
     def in_order(self, node):
         """Return values in order traversal."""
@@ -337,7 +314,6 @@ class BST(object):
                 tracker.left = replacement.right
                 replacement.left = cur.left
                 replacement.right = cur.right
-                self.neo_depth_adjust(tracker)
                 return replacement
 
         else:
@@ -354,7 +330,6 @@ class BST(object):
                     replacement = tracker.right
                     tracker.right = replacement.left
                     replacement.left = cur.left
-                    self.neo_depth_adjust(tracker)
                     return replacement
 
             else:
@@ -370,14 +345,12 @@ class BST(object):
                     replacement = tracker.left
                     tracker.left = replacement.right
                     replacement.right = cur.right
-                    self.neo_depth_adjust(tracker)
                     return replacement
 
     def delete(self, value):
         """Delete a node with the given value, or return no-op."""
         if self.root.value == value:
             self.root = self.restructure(self.root)
-            self.neo_depth_adjust(self.root)
             return
         cur = self.root
         completed = False
@@ -390,21 +363,15 @@ class BST(object):
                     raise ValueError('The BST does not contain that value')
                 elif cur.left.value == value:
                     cur.left = self.restructure(cur.left)
-                    self.neo_depth_adjust(cur.left)
-                    if cur.right:
-                        self.balancing(cur.right)
                     completed = True
                 else:
                     cur = cur.left
 
             else:
                 if not cur.right:
-                    raise ValueError('The BST does not contain that value')
+                    raise ValueError('The BST does not contain that')
                 if cur.right.value == value:
                     cur.right = self.restructure(cur.right)
-                    self.neo_depth_adjust(cur.right)
-                    if cur.left:
-                        self.balancing(cur.left)
                     completed = True
                 else:
                     cur = cur.right

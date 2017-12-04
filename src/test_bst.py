@@ -6,7 +6,7 @@ import pytest
 @pytest.fixture
 def basic_setup():
     """A basic setup with two numbers."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(9)
     b.insert(10)
@@ -16,7 +16,7 @@ def basic_setup():
 @pytest.fixture
 def fancy_setup():
     """A more complicated setup."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(100)
     b.insert(90)
@@ -31,7 +31,7 @@ def fancy_setup():
 @pytest.fixture
 def fancier_setup():
     """Ooooh, fancy."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(100)
     b.insert(200)
@@ -44,7 +44,7 @@ def fancier_setup():
 @pytest.fixture
 def fanciest_setup():
     """Ooooh, fancy."""
-    from bst_experimental import BST
+    from bst import BST
     b = BST()
     b.insert(100)
     b.insert(70)
@@ -57,7 +57,6 @@ def fanciest_setup():
     return b
 
 
-
 def test_bst_root(basic_setup):
     """9 is in the tree."""
     assert basic_setup.root.value == 9
@@ -68,160 +67,331 @@ def test_bst_1layer(basic_setup):
     assert basic_setup.root.right.value == 10
 
 
-def test_contains01(basic_setup):
-    """10 is in the tree."""
-    assert basic_setup.contains(10)
-
-
-def test_depth01(basic_setup):
-    """Depth registers correctly."""
-    assert basic_setup.depth == 1
-
-
-def test_balance01(basic_setup):
-    """Balance registers correctly."""
-    assert basic_setup.balance == 1
-
-
-def test_contain02(fancy_setup):
-    """52 is in the tree."""
-    assert fancy_setup.contains(52)
-
-
-def test_depth02(fancy_setup):
-    """Depth is maintained in a fancy setup."""
-    assert fancy_setup.depth == 3
-
-
-def test_depth03(fancy_setup):
-    """Left depth registers correctly."""
-    assert fancy_setup.left_depth == 3
-
-
-def test_contains03(fancy_setup):
-    """The tree contains 17."""
-    assert fancy_setup.contains(17)
-
-
-def test_right_place_01(fancy_setup):
-    """The 52 is where it should be."""
-    assert fancy_setup.root.left.left.right.value == 52
-
-
-def test_balance02(fancy_setup):
-    """The correct balance is maintained."""
-    assert fancy_setup.balance == -1
-
-
-def test_duplicate01(fancy_setup):
-    """."""
-    with pytest.raises(Exception):
-        fancy_setup.insert(17)
-
-
 def test_iterable01():
     """BST will construct from an iterable."""
     from bst import BST
     b = BST([19, 25, 31, 16])
-    assert b.root.value == 19
+    assert b.root.value == 25
 
 
 def test_iterable02():
     """Will maintain form."""
     from bst import BST
-    b = BST([19, 25, 31, 16])
-    assert b.root.right.value == 25
+    b = BST([19, 25, 31])
+    assert b.root.value == 25
 
 
-def test_in_order01(fancy_setup):
-    """Test in_order method."""
-    assert fancy_setup.in_order(fancy_setup.root) == [17, 52, 90, 91, 100, 390, 400]
+def test_triple_left():
+    """Three on the left."""
+    from bst import BST
+    b = BST()
+    b.insert(50)
+    b.insert(40)
+    b.insert(30)
+    assert b.root.value == 40
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 1
+    assert b.root.left.value == 30
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+    assert b.root.right.value == 50
+    assert b.root.right.right_depth == 0
+    assert b.root.right.left_depth == 0
 
 
-def test_pre_order01(fancy_setup):
-    """Test pre_order method."""
-    assert fancy_setup.pre_order(fancy_setup.root) == [100, 90, 17, 52, 91, 400, 390]
+def test_triple_right(basic_setup):
+    """Ensure that right-right works."""
+    basic_setup.insert(20)
+    assert basic_setup.root.value == 10
+    assert basic_setup.root.left_depth == 1
+    assert basic_setup.root.right_depth == 1
+    assert basic_setup.root.left.value == 9
+    assert basic_setup.root.left.left_depth == 0
+    assert basic_setup.root.left.right_depth == 0
+    assert basic_setup.root.right.value == 20
+    assert basic_setup.root.right.right_depth == 0
+    assert basic_setup.root.right.left_depth == 0
 
 
-def test_post_order01(fancy_setup):
-    """Test post_order method."""
-    assert fancy_setup.post_order(fancy_setup.root) == [52, 17, 91, 90, 390, 400, 100]
+def test_left_right():
+    """Just a jump to the left. And a step to the ri-i-i-ght."""
+    from bst import BST
+    b = BST()
+    b.insert(50)
+    b.insert(40)
+    b.insert(45)
+    assert b.root.value == 45
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 1
+    assert b.root.left.value == 40
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+    assert b.root.right.value == 50
+    assert b.root.right.right_depth == 0
+    assert b.root.right.left_depth == 0
 
 
-def test_breadth_first(fancy_setup):
-    """Test breadth first."""
-    assert fancy_setup.breadth_first() == [100, 90, 400, 17, 91, 390, 52]
+def test_right_left():
+    """Right rotation then left rotation."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(200)
+    b.insert(150)
+    assert b.root.value == 150
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 1
+    assert b.root.left.value == 100
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+    assert b.root.right.value == 200
+    assert b.root.right.right_depth == 0
+    assert b.root.right.left_depth == 0
 
 
-def test_restructure01(fancy_setup):
-    """Test the restructure method on fancy_setup tree."""
-    assert (fancy_setup.restructure(fancy_setup.root.right)).value == 390
+def test_building_to_fancier():
+    """Break down fancier and test it along the way."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(200)
+    b.insert(175)
+    assert b.root.value == 175
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 1
+    assert b.root.left.value == 100
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+    assert b.root.right.value == 200
+    assert b.root.right.right_depth == 0
+    assert b.root.right.left_depth == 0
 
 
-def test_restructure02(fancy_setup):
-    """Test the restructure method on fancy_setup tree."""
-    assert (fancy_setup.restructure(fancy_setup.root.left)).value == 91
+def test_building_to_fancier01():
+    """Building."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(200)
+    b.insert(175)
+    b.insert(190)
+    assert b.root.value == 175
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 2
+    assert b.root.left.value == 100
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+    assert b.root.right.value == 200
+    assert b.root.right.right_depth == 0
+    assert b.root.right.left_depth == 1
+    assert b.root.right.left.value == 190
+    assert b.root.right.left.right_depth == 0
+    assert b.root.right.left.left_depth == 0
 
 
-def test_restructure03(fancy_setup):
-    """Test the restructure method on fancy_setup tree."""
-    assert (fancy_setup.restructure(fancy_setup.root)).value == 390
+def test_building_to_fancier03():
+    """Building. First major obstacle."""
+    from bst_balancing import BST
+    b = BST()
+    b.insert(100)
+    b.insert(200)
+    b.insert(175)
+    b.insert(190)
+    b.insert(180)
+    assert b.root.value == 175
+    assert b.root.left_depth == 1
+    assert b.root.right_depth == 2
+
+    assert b.root.left.value == 100
+    assert b.root.left.left_depth == 0
+    assert b.root.left.right_depth == 0
+    assert b.root.left.parent.value == 175
+
+    assert b.root.right.value == 190
+    assert b.root.right.left_depth == 1
+    assert b.root.right.right_depth == 1
+
+    assert b.root.right.left.value == 180
+    assert b.root.right.left.right_depth == 0
+    assert b.root.right.left.left_depth == 0
+
+    assert b.root.right.right.value == 200
+    assert b.root.right.right.right_depth == 0
+    assert b.root.right.right.left_depth == 0
 
 
-def test_delete01(basic_setup):
-    """Test those deleteses."""
+def test_building_to_fanciest01():
+    """Everything works up to inserting 200."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    assert b.root.value == 80
+    assert b.root.left_depth == 2
+    assert b.root.right_depth == 2
+
+    assert b.root.left.value == 60
+    assert b.root.left.left_depth == 1
+    assert b.root.left.right_depth == 1
+
+    assert b.root.left.left.value == 53
+    assert b.root.left.left.left_depth == 0
+    assert b.root.left.left.right_depth == 0
+
+    assert b.root.left.right.value == 70
+    assert b.root.left.right.left_depth == 0
+    assert b.root.left.right.right_depth == 0
+
+    assert b.root.right.value == 100
+    assert b.root.right.left_depth == 0
+    assert b.root.right.right_depth == 1
+
+    assert b.root.right.right.value == 200
+    assert b.root.right.right.left_depth == 0
+    assert b.root.right.right.right_depth == 0
+
+
+def test_building_to_fanciest02():
+    """Everything works up to inserting 150."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    b.insert(150)
+    assert b.root.value == 80
+    assert b.root.left_depth == 2
+    assert b.root.right_depth == 2
+
+    assert b.root.left.value == 60
+    assert b.root.left.left_depth == 1
+    assert b.root.left.right_depth == 1
+
+    assert b.root.left.left.value == 53
+    assert b.root.left.left.left_depth == 0
+    assert b.root.left.left.right_depth == 0
+
+    assert b.root.left.right.value == 70
+    assert b.root.left.right.left_depth == 0
+    assert b.root.left.right.right_depth == 0
+
+    assert b.root.right.value == 150
+    assert b.root.right.left_depth == 1
+    assert b.root.right.right_depth == 1
+
+    assert b.root.right.left.value == 100
+    assert b.root.right.left.left_depth == 0
+    assert b.root.right.left.right_depth == 0
+
+    assert b.root.right.right.value == 200
+    assert b.root.right.right.left_depth == 0
+    assert b.root.right.right.right_depth == 0
+
+
+def test_building_to_fanciest03():
+    """Everything works up to inserting 300."""
+    from bst import BST
+    b = BST()
+    b.insert(100)
+    b.insert(70)
+    b.insert(80)
+    b.insert(53)
+    b.insert(60)
+    b.insert(200)
+    b.insert(150)
+    b.insert(300)
+    assert b.root.value == 80
+    assert b.root.left_depth == 2
+    assert b.root.right_depth == 3
+
+    assert b.root.left.value == 60
+    assert b.root.left.left_depth == 1
+    assert b.root.left.right_depth == 1
+
+    assert b.root.left.left.value == 53
+    assert b.root.left.left.left_depth == 0
+    assert b.root.left.left.right_depth == 0
+
+    assert b.root.left.right.value == 70
+    assert b.root.left.right.left_depth == 0
+    assert b.root.left.right.right_depth == 0
+
+    assert b.root.right.value == 150
+    assert b.root.right.left_depth == 1
+    assert b.root.right.right_depth == 2
+
+    assert b.root.right.left.value == 100
+    assert b.root.right.left.left_depth == 0
+    assert b.root.right.left.right_depth == 0
+
+    assert b.root.right.right.value == 200
+    assert b.root.right.right.left_depth == 0
+    assert b.root.right.right.right_depth == 1
+
+    assert b.root.right.right.right.value == 300
+    assert b.root.right.right.right.left_depth == 0
+    assert b.root.right.right.right.right_depth == 0
+
+def test_delete_auto_adjust01(basic_setup):
+    basic_setup.insert(5)
     basic_setup.delete(9)
-    basic_setup.delete(10)
-    assert not basic_setup.root
+    assert basic_setup.root.value == 10
+    assert basic_setup.root.left_depth == 1
+    assert basic_setup.root.right_depth == 0
 
+    assert basic_setup.root.left.value == 5
+    assert basic_setup.root.left.left_depth == 0
+    assert basic_setup.root.left.right_depth == 0
 
-def test_delete02(fancy_setup):
-    """Test more deleteses."""
-    fancy_setup.delete(100)
-    assert fancy_setup.root.value == 390
+def test_delete_auto_adjust02(fancier_setup):
+    fancier_setup.delete(190)
+    assert fancier_setup.root.value == 175
+    assert fancier_setup.root.left_depth == 1
+    assert fancier_setup.root.right_depth == 2
 
+    assert fancier_setup.root.right.value == 200
+    assert fancier_setup.root.right.left_depth == 1
+    assert fancier_setup.root.right.right_depth == 0
 
-def test_delete03(fancy_setup):
-    """Test more deleteses."""
-    fancy_setup.delete(100)
-    fancy_setup.delete(390)
-    fancy_setup.delete(400)
-    assert fancy_setup.root.value == 91
+    assert fancier_setup.root.right.left.value == 180
+    assert fancier_setup.root.right.left.left_depth == 0
+    assert fancier_setup.root.right.left.right_depth == 0
 
+def test_delete_auto_adjust03(fancier_setup):
+    fancier_setup.delete(175)
+    assert fancier_setup.root.value == 180
+    assert fancier_setup.root.left_depth == 1
+    assert fancier_setup.root.right_depth == 2
 
-def test_deletenull(fancy_setup):
-    """Test more deleteses."""
-    with pytest.raises(ValueError):
-        fancy_setup.delete(11)
+    assert fancier_setup.root.left.value == 100
+    assert fancier_setup.root.left.left_depth == 0
+    assert fancier_setup.root.left.right_depth == 0
 
+    assert fancier_setup.root.right.value == 190
+    assert fancier_setup.root.right.left_depth == 0
+    assert fancier_setup.root.right.right_depth == 1
 
-def test_fancier_restructure(fancier_setup):
-    """To make sure everything is being built correctly."""
-    assert fancier_setup.root.right.left.right.left.value == 180
+    assert fancier_setup.root.right.right.value == 200
+    assert fancier_setup.root.right.right.left_depth == 0
+    assert fancier_setup.root.right.right.right_depth == 0
 
+def test_delete_auto_adjust04(fanciest_setup):
+    fanciest_setup.delete(80)
+    assert fanciest_setup.root.value == 100
+    assert fanciest_setup.root.left_depth == 2
+    assert fanciest_setup.root.right_depth == 3
 
-def test_restructure04(fancier_setup):
-    """Test the restructure method on fancy_setup tree."""
-    assert (fancier_setup.restructure(fancier_setup.root.right)).value == 175
+    assert fanciest_setup.root.right.value == 150
+    assert fanciest_setup.root.right.right_depth == 2
+    assert fanciest_setup.root.right.left_depth == 0
 
-
-def test_restructure05(fancier_setup):
-    """Test the restructure method on fancy_setup tree."""
-    fancier_setup.delete(200)
-    assert (fancier_setup.restructure(fancier_setup.root.right)).value == 180
-
-
-def test_restructure06(fanciest_setup):
-    """Test the restructure method on fancy_setup tree."""
-    assert (fanciest_setup.restructure(fanciest_setup.root)).value == 150
-
-
-def test_restructure07(fanciest_setup):
-    """Test the restructure method on fancy_setup tree."""
-    assert (fanciest_setup.restructure(fanciest_setup.root.left.left)).value == 60
-
-
-def test_restructure08(fanciest_setup):
-    """Test the restructure method on fancy_setup tree."""
-    fanciest_setup.delete(53)
-    assert fanciest_setup.root.left.left.value == 60
+    assert fanciest_setup.root.right.right.value == 200
+    assert fanciest_setup.root.right.right_depth == 1
+    assert fanciest_setup.root.right.left_depth == 0
