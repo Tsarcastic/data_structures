@@ -26,14 +26,17 @@ def test_contains_false():
     t.insert('Banana')
     assert not t.contains('Apple')
 
+
 def test_contains_partial_false():
-    """Does not contain a ban."""
+    """Partial word returns false."""
     from trie import Trie
     t = Trie()
     t.insert('Banana')
     assert not t.contains('ban')
 
-def test_DOES_contain_ban():
+
+def test_does_contain_ban():
+    """Adding a partial word causes true return."""
     from trie import Trie
     t = Trie()
     t.insert('Banana')
