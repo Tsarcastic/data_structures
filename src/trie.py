@@ -40,6 +40,10 @@ class Trie(object):
 
     def contains(self, string):
         """Will return True if the string is in the trie, False if not."""
+        if string is'':
+            return False
+        if string is None:
+            raise ValueError('You have to type something in you dingus.')
         current_node = self.root
         string.split()
         i = 0
@@ -52,11 +56,19 @@ class Trie(object):
                 return False
         if current_node.entire_word == string:
             return True
-        else: 
+        else:
             return False
 
     def _size(self):
         """Will return the total number of words in the trie. 0 if empty."""
+        return self.size
 
     def remove(self, string):
         """Will remove the given string from the trie."""
+        if string is '':
+            return False
+        if string is None:
+            raise ValueError('You have to type something in you dingus.')
+        current_node = self.root
+        while not finished:
+
