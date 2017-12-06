@@ -23,9 +23,9 @@ class Trie(object):
     def insert(self, string):
         """Will insert a string into the trie. Duplicates will be ignored."""
         if string is '':
-            return False
-        if string is not isinstance(string, str):
-            raise ValueError('You have to type a string.')       
+            return ValueError('You need to insert text')
+        #if string is not isinstance(string, str):
+            #raise ValueError('You have to type a string.')
         current_node = self.root
         string.split()
         i = 0
@@ -45,8 +45,8 @@ class Trie(object):
 
     def contains(self, string):
         """Will return True if the string is in the trie, False if not."""
-        if string is not isinstance(string, str):
-            raise TypeError('Word is not a string')
+        #if string is not isinstance(string, str):
+            #raise TypeError('Word is not a string')
         if string is'':
             return False
         return string in self.dict_of_words

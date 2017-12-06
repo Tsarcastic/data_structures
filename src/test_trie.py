@@ -3,18 +3,12 @@
 import pytest
 
 
-@pytest.fixture
-def basic_setup():
-    """A basic setup."""
+def test_basic():
+    """Add a banana."""
     from trie import Trie
     t = Trie()
-    return t
-
-
-def test_basic(basic_setup):
-    """Add a banana."""
-    basic_setup.insert('Banana')
-    assert 'B' in basic_setup.root.next_node
+    t.insert('Banana')
+    assert 'B' in t.root.next_node
 
 
 def test_contains_true():
@@ -49,4 +43,5 @@ def test_does_contain_ban():
     t.insert('ban')
     assert t.contains('ban')
 
-deft test_cant
+
+
