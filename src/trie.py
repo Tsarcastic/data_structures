@@ -55,8 +55,6 @@ class Trie(object):
         """Will remove the given string from the trie."""
         if string is '':
             return False
-        if string is isinstance(string, str):
-            raise ValueError('You have to type a string.')
         if string not in self.dict_of_words:
             return False
         initial = string
