@@ -40,3 +40,24 @@ Time Complexity for size is O(log n), since the time changes based on the number
 This will delete a node and restructure the BST to make sure it's balanced.
 Time Complexity for size is O(log n), since it will at most traverse half the tree and it can also run the restructure function which takes O(log n)
 
+------------------
+## Trie
+-------------------
+The Trie is a data structure used to contain strings.
+
+### Insert
+This will insert a series of nodes into the tree that spell out the inserted word.
+Time complexity for this is O(1).
+
+### Contains
+This will check to see if the Trie contains a word..
+Time complexity for this is O(1), since the list of words is a dictionary at the starting node.
+
+### Size
+This will return the total number of words in the trie.
+Time complexity for this is O(1).
+
+### Size
+If the word is in the trie this will remove it. If it doesn't it will return an error message.
+Time complexity for this is O(1).
+
