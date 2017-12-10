@@ -22,9 +22,10 @@ class Trie(object):
 
     def insert(self, string):
         """Will insert a string into the trie. Duplicates will be ignored."""
-        if string is '':
+        if not string:
             return ValueError('You need to insert text')
         current_node = self.root
+        string = str(string)
         string.split()
         i = 0
         while i < len(string):
@@ -43,7 +44,7 @@ class Trie(object):
 
     def contains(self, string):
         """Will return True if the string is in the trie, False if not."""
-        if string is'':
+        if not string:
             return False
         return string in self.dict_of_words
 
@@ -53,6 +54,7 @@ class Trie(object):
 
     def remove(self, string):
         """Will remove the given string from the trie."""
+        string = str(string)
         if string is '':
             return False
         if string not in self.dict_of_words:
@@ -78,3 +80,27 @@ class Trie(object):
         last_node.next_node.pop(last_key, None)
         self.dict_of_words.pop(initial, None)
         self.size += -1
+
+    def traversal(self, start):
+        """Traverse the trie."""
+        current = self.root
+        word_list = []
+        if not start:
+            keys = self.dict_of_words.keys()
+            for item in keys:
+                word_list.append(item)
+        elif start[0] in current.next_node:
+            for letter in start:
+                if letter in current.next_node:
+                    current = current.next_node[letter]
+                else:
+                    break
+            self.recursal(current, word_list)
+        return word_list
+
+    def recursal(self, start, the_list):
+        """Recursive function to get the possibilities."""
+        if start.entire_word:
+            the_list.append(start.entire_word)
+        for path in start.next_node:
+            self.recursal(start.next_node[path], the_list)
