@@ -83,3 +83,69 @@ def test_removing_banana_leaves_ban_intact():
     assert t.contains('Ban')
     assert 'Ban' in t.dict_of_words
     assert t.size == 1
+
+
+def test_removal():
+    """Remove it."""
+    from trie import Trie
+    t = Trie()
+    t.insert('Banana')
+    assert not t.remove('')
+
+
+def test_traversal01():
+    """Come on baby."""
+    from trie import Trie
+    t = Trie()
+    t.insert('Banana')
+    assert t.traversal('') == ['Banana']
+
+
+def test_traversal02():
+    """Come on baby."""
+    from trie import Trie
+    t = Trie()
+    t.insert('Banana')
+    t.insert('Ban')
+    assert t.traversal('Ban') == ['Ban', 'Banana']
+
+
+def test_traversal03():
+    """Come on baby."""
+    from trie import Trie
+    t = Trie()
+    t.insert('Banana')
+    t.insert('Ban')
+    assert t.traversal('App') == []
+    assert t.size == 2
+
+
+def test_traversal04():
+    """Fruit."""
+    from trie import Trie
+    t = Trie()
+    t.insert('Banana')
+    t.insert('Apple')
+    t.insert('Grapes')
+    t.remove('Grapes')
+    assert t.traversal('') == ['Banana', 'Apple']
+    assert t.size == 2
+
+
+def test_traversal05():
+    """Numbers? Numbers."""
+    from trie import Trie
+    t = Trie()
+    t.insert(1)
+    assert t.traversal('') == ['1']
+
+
+def test_traversal06():
+    """Numbers? Numbers."""
+    from trie import Trie
+    t = Trie()
+    t.insert(1)
+    t.insert(1111)
+    t.remove(1)
+    assert t.traversal('') == ['1111']
+
