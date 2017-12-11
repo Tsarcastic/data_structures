@@ -17,6 +17,17 @@ def bubble_sort(nums):
     longer = random.sample(range(1, 10000), 100)
 
 
+def insertion_sort(nums):
+    """."""
+    for i in range(1, len(nums)):
+        cur = nums[i]
+        tracker = i
+
+        while tracker > 0 & nums[tracker] < nums[-1]:
+            nums[tracker], nums[tracker - 1] = nums[tracker - 1], nums[tracker]
+        nums[tracker] = cur
+    return nums
+
 if __name__ == '__main__':
     short = [0, 1, 2, 3, 4, 5]
     longer = random.sample(range(1, 10000), 100)

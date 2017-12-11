@@ -22,3 +22,9 @@ def test_numbers():
     from bubble_sort import bubble_sort
     nums = [100, 200, 1, 3]
     assert bubble_sort(nums) == [1, 3, 100, 200]
+
+def test_insertion():
+    """Insert it."""
+    from bubble_sort import insertion_sort
+    nums = [100, 20, 10, 1000]
+    assert insertion_sort(nums) == [10, 20, 100, 1000]
