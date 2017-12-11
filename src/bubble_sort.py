@@ -18,15 +18,14 @@ def bubble_sort(nums):
 
 
 def insertion_sort(nums):
-    """."""
+    """Fuck this noise."""
     for i in range(1, len(nums)):
         cur = nums[i]
         tracker = i
 
-        while tracker > 0 & nums[tracker] < nums[-1]:
+        while tracker > 0 & nums[tracker] < nums[tracker - 1]:
             nums[tracker], nums[tracker - 1] = nums[tracker - 1], nums[tracker]
-        nums[tracker] = cur
-    return nums
+        return nums
 
 if __name__ == '__main__':
     short = [0, 1, 2, 3, 4, 5]
