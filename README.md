@@ -48,3 +48,24 @@ All sorts of sorts.
 ### Bubble Sort
 This will compare an item to the one on its right, then if it's bigger the two will swap.
 Time Complexity for size is O(N^2). This is because you may have to run through the sorting a shitton of times. (Scientific term)
+=======
+## Trie
+-------------------
+The Trie is a data structure used to contain strings.
+
+### Insert
+This will insert a series of nodes into the tree that spell out the inserted word.
+Time complexity for this is O(1).
+
+### Contains
+This will check to see if the Trie contains a word..
+Time complexity for this is O(1), since the list of words is a dictionary at the starting node.
+
+### Size
+This will return the total number of words in the trie.
+Time complexity for this is O(1).
+
+### Size
+If the word is in the trie this will remove it. If it doesn't it will return an error message.
+Time complexity for this is O(1).
+
