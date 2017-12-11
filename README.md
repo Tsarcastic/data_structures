@@ -41,6 +41,14 @@ This will delete a node and restructure the BST to make sure it's balanced.
 Time Complexity for size is O(log n), since it will at most traverse half the tree and it can also run the restructure function which takes O(log n)
 
 ------------------
+## Sorts
+-------------------
+All sorts of sorts.
+
+### Bubble Sort
+This will compare an item to the one on its right, then if it's bigger the two will swap.
+Time Complexity for size is O(N^2). This is because you may have to run through the sorting a shitton of times. (Scientific term)
+=======
 ## Trie
 -------------------
 The Trie is a data structure used to contain strings.
