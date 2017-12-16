@@ -21,11 +21,11 @@ def insertion_sort(nums):
     """."""
     for i in range(1, len(nums)):
         cur = nums[i]
-        tracker = i
+        tracker = i - 1
+        while tracker >= 0 and cur < nums[tracker]:
+            
 
-        while tracker > 0 & nums[tracker] < nums[-1]:
-            nums[tracker], nums[tracker - 1] = nums[tracker - 1], nums[tracker]
-        nums[tracker] = cur
+
     return nums
 
 if __name__ == '__main__':
