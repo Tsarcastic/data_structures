@@ -14,11 +14,14 @@ class Node(object):
 class Trie(object):
     """Get that Trie, son."""
 
-    def __init__(self):
+    def __init__(self, iterable=()):
         """Construct the trie, all smooth-like."""
         self.size = 0
         self.root = Node()
         self.dict_of_words = {}
+        if hasattr(iterable, '__iter__') or isinstance(iterable, str):
+            for item in iterable:
+                self.insert(item)
 
     def insert(self, string):
         """Will insert a string into the trie. Duplicates will be ignored."""
