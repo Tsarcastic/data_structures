@@ -69,3 +69,14 @@ Time complexity for this is O(1).
 If the word is in the trie this will remove it. If it doesn't it will return an error message.
 Time complexity for this is O(1).
 
+------------------
+## Autocomplete
+-------------------
+Autocomplete accepts two arguments when it is initialized.
+1) A list of vocabulary words, which will be used to construct a trie as a property of the autocomplete object.
+2) The maximum number of completions that will be provided when the object is later called. This defaults to 5.
+
+When the autocomplete is called after instantiation it accepts one arguments.
+This argument is the basis of the word being autocompleted.
+Calling this object will return a list of possible completions for the word, 
+    with the maximum size of the list being the second argument provided at instantiation.
