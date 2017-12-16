@@ -149,3 +149,10 @@ def test_traversal06():
     t.remove(1)
     assert t.traversal('') == ['1111']
 
+def test_iterableinit01():
+    """Whereupon our hero is an iterable."""
+    from trie import Trie
+    words = ['ant', 'banana', 'fruit', 'queen']
+    t = Trie(words)
+    assert t.contains('ant')
+    assert t.contains('banana')

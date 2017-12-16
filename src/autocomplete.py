@@ -1,4 +1,21 @@
-"""Trie Basic Edition: DLC sold separately."""
+"""Autocomplete using a trie."""
+
+
+class Autocomplete(object):
+    """Autocompletes words."""
+
+    def __init__(self, vocab, max_completions=5):
+        """Construct the trie, all smooth-like."""
+        if max_completions < 1:
+            raise ValueError('Max completions must be at least one.')
+        self.vocab = Trie(vocab)
+        self.max_completions = max_completions
+
+    def __call__(self, word):
+        """Should autocomplete the word."""
+        if not word:
+            return ValueError('You need to provide text')
+        return (self.vocab.traversal(word))[:self.max_completions]
 
 
 class Node(object):
