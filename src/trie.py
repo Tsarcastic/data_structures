@@ -97,7 +97,7 @@ class Trie(object):
                 if letter in current.next_node:
                     current = current.next_node[letter]
                 else:
-                    break
+                    return word_list
             self.recursal(current, word_list)
         return word_list
 

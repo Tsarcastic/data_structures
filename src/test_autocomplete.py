@@ -33,4 +33,18 @@ def test_assignment_example02():
     complete_me = Autocomplete(vocabulary, 4)
     assert complete_me('fi') == ['fix', 'fit', 'fist', 'finch']
 
-def test_assignment_example03
+
+def test_assignment_example03():
+    """Testing with the example vocabulary."""
+    from autocomplete import Autocomplete
+    vocabulary = ['fix', 'fax', 'fit', 'fist', 'full', 'finch', 'final', 'finial']
+    complete_me = Autocomplete(vocabulary, 4)
+    assert complete_me('fin') == ['finch', 'final', 'finial']
+
+
+def test_assignment_example04():
+    """Testing with the example vocabulary."""
+    from autocomplete import Autocomplete
+    vocabulary = ['fix', 'fax', 'fit', 'fist', 'full', 'finch', 'final', 'finial']
+    complete_me = Autocomplete(vocabulary, 4)
+    assert complete_me('finally') == []
