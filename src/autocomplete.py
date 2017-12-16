@@ -11,6 +11,8 @@ class Autocomplete(object):
 
     def __call__(self, word):
         """Should autocomplete the word."""
+        if not word:
+            return ValueError('You need to provide text')
         return (self.vocab.traversal(word))[:self.max_completions]
 
 
