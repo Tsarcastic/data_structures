@@ -1,5 +1,6 @@
 """A partition-exchange sort."""
-
+import timeit
+import random
 
 def quick_sort(nums):
     """Standard quick sort."""
@@ -29,3 +30,18 @@ def quick_sort(nums):
         for item in high_list:
             final_list.append(item)
         return final_list
+
+if __name__ == '__main__':
+    short = [0, 1, 2, 3, 4, 5]
+    longer = random.sample(range(1, 10000), 100)
+    print("\nQuick Sort is a sophisticated divide and conquer sort.\n")
+    print("Input: [0, 1, 2, 3, 4, 5]")
+    b1 = timeit.timeit("quick_sort(short[:])",
+                       "from __main__ import quick_sort, short",
+                       number=200)
+    print("\tQuick Sort --> 200 runs --> average time:{:4e}\n".format(b1 / 200))
+    print("Input: [100 random numbers from 1 to 10,000]")
+    b2 = timeit.timeit("quick_sort(longer[:])",
+                       "from __main__ import quick_sort, longer",
+                       number=200)
+    print("\tQuick Sort --> 200 runs --> average time:{:4e}\n".format(b2 / 200))
