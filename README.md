@@ -80,3 +80,4 @@ When the autocomplete is called after instantiation it accepts one arguments.
 This argument is the basis of the word being autocompleted.
 Calling this object will return a list of possible completions for the word, 
     with the maximum size of the list being the second argument provided at instantiation.
+
