@@ -48,6 +48,11 @@ All sorts of sorts.
 ### Bubble Sort
 This will compare an item to the one on its right, then if it's bigger the two will swap.
 Time Complexity for size is O(N^2). This is because you may have to run through the sorting a shitton of times. (Scientific term)
+
+### Merge Sort
+This will divide the initial numbers into a series of sublists containing 1 number, then repeatedly merge sublists until there is only one sublist.
+Time Complexity for size is (On log n). Since it will always split the lists into n sublists the time required is constant.
+
 =======
 ## Trie
 -------------------
