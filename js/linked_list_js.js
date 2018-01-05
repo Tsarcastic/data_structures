@@ -1,9 +1,9 @@
 'use strict'
 
 class Node {
-    constructor(data) {
+    constructor(data, next=null) {
         this.data = data
-        this.next = null
+        this.next = next
     }
 }
 
@@ -18,5 +18,8 @@ class LinkedList {
         return this._counter
     }
 
-    
+    push(val) {
+        this.head = new Node(val, this.head)
+        this._counter += 1
+    }
 }
