@@ -27,6 +27,37 @@ def insertion_sort(nums):
             nums[tracker], nums[tracker - 1] = nums[tracker - 1], nums[tracker]
         return nums
 
+def merge_sort(nums):
+    """Half and half."""
+    if len(nums) == 1:
+        return nums
+    if len(nums) == 2:
+        if nums[1] < nums[0]:
+            nums[1], nums[0] = nums[0], nums[1]
+    half = len(inp) / 2
+    first_half = inp[:half]
+    second_half = inp[half:]
+
+    output = []
+    left_ct = 0
+    right_ct = 0
+    while left_ct < len(first_half) & right_ct > len(second_half):
+        
+    if len(first_half) > 1:
+        first_half = merge_sort(first_half)
+    if len(second_half) > 1:
+        second_half = merge_sort(second_half)
+    full = []
+    while 
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     short = [0, 1, 2, 3, 4, 5]
     longer = random.sample(range(1, 10000), 100)
