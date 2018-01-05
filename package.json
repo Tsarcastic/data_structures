@@ -1,0 +1,25 @@
+{
+  "name": "data_structures",
+  "version": "1.0.0",
+  "description": "Data structures for 401d7 Python class",
+  "main": "js/linked_list_js",
+  "dependencies": {
+    "jest": "^22.0.4"
+  },
+  "devDependencies": {
+    "jest": "^22.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tsarcastic/data_structures.git"
+  },
+  "author": "Brendan M.D.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tsarcastic/data_structures/issues"
+  },
+  "homepage": "https://github.com/Tsarcastic/data_structures#readme"
+}

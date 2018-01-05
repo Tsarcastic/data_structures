@@ -23,3 +23,5 @@ class LinkedList {
         this._counter += 1
     }
 }
+
+export {Node, LinkedList}
