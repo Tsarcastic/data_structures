@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1515221586420" clover="3.2.0">
-  <project timestamp="1515221586420" name="All files">
+<coverage generated="1515221772807" clover="3.2.0">
+  <project timestamp="1515221772808" name="All files">
     <metrics statements="95" coveredstatements="88" conditionals="27" coveredconditionals="21" methods="20" coveredmethods="19" elements="142" coveredelements="128" complexity="0" loc="95" ncloc="95" packages="1" files="4" classes="4">
       <file name="deque_js.js" path="C:\Users\brend\python401\data_structures\js\deque_js.js">
         <metrics statements="54" coveredstatements="50" conditionals="18" coveredconditionals="14" methods="9" coveredmethods="9"/>
