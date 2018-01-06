@@ -6,8 +6,8 @@ class Binheap {
         this.bin_list = [0]
         this.heap_index = 0
         if(iterable.length > 0) {
-            for (var item in iterable) {
-                this.push_list(item)
+            for (var i = 0; i < iterable.length; i++) {
+                this.push_list(iterable[i])
             }
         }
     }
@@ -58,8 +58,11 @@ class Binheap {
     }
 
     pop() {
+        if(this.heap_index == 0) {
+            throw 'The binary heap is empty.'
+        }
         var to_remove = this.bin_list[1]
-        this.bin_list[1] = this.bin_list[-1]
+        this.bin_list[1] = this.bin_list[this.bin_list.length -1]
         this.bin_list = this.bin_list.slice(0, -1)
         this.heap_index += -1
         this.sort_down()
