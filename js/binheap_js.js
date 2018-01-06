@@ -2,7 +2,7 @@
 'use strict()'
 
 class Binheap {
-    constructor() {
+   constructor() {
         this.bin_list = [0]
         this.heap_index = 0
     }
@@ -61,21 +61,6 @@ class Binheap {
         return to_remove
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = Binheap
 
