@@ -84,11 +84,11 @@ class DoubleLinkedList {
         var curr = this.head
         if(curr == null) {
             throw 'The list is empty.'
-        } else if(this.head == this.tail) && (this.head.value == val) {
-            //this.head = null
-            //this.tail = null
-            //this._counter --
-            //console.log('That item has been removed. This list is now empty.')
+        } else if((this.head == this.tail) && (this.head.value == val)) {
+            this.head = null
+            this.tail = null
+            this._counter --
+            console.log('That item has been removed. This list is now empty.')
         } else if(this.head.value == val) {
             this.head = this.head.next
             this.head.previous = null
