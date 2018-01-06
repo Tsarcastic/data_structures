@@ -2,7 +2,7 @@
 'use strict()'
 
 class Node {
-    constructor(data, next, previous=Null) {
+    constructor(data, next, previous=null) {
         this.data = data
         this.next = next
         this.previous = previous
@@ -34,7 +34,7 @@ class DoubleLinkedList {
     }
 
     push_tail(val) {
-        var new_tail = new Node(val, Null, this.tail)
+        var new_tail = new Node(val, null, this.tail)
         this._counter += 1
         if(this.tail == null) {
             this.tail = new_tail
@@ -101,7 +101,7 @@ class DoubleLinkedList {
             this._counter --
             console.log('The node has been removed')
             return
-        }
+        } else {
         while (curr.next != this.tail) {
             if(curr.next.data == val) {
                 curr.next = curr.next.next
@@ -112,10 +112,8 @@ class DoubleLinkedList {
             curr = curr.next
         }
         return false
-
-
-
-
+        }
+    }
 }
 
-module.exports = {Node, Queue}
+module.exports = {Node, DoubleLinkedList}
