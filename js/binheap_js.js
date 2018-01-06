@@ -2,29 +2,34 @@
 'use strict()'
 
 class Binheap {
-   constructor() {
+   constructor(iterable=[]) {
         this.bin_list = [0]
         this.heap_index = 0
+        if(iterable.length > 0) {
+            for (var item in iterable) {
+                this.push_list(item)
+            }
+        }
     }
 
     display() {
         console.log(this.heap_index.toString())
     }
 
-    push(val) {
-        this.bin_list.append(val)
+    push_list(val) {
+        this.bin_list.push(val)
         this.heap_index += 1
-        this.sort(this.heap_index)
+        this.sort_up(this.heap_index)
     }
 
     sort_up(index) {
         var range = this.heap_index
         while(range > 0) {
-            if(this.bin_list[index] < this.bin_list[floor(index / 2)]) {
-                var temp = this.bin_list[floor(index / 2)]
-                this.bin_list[floor(index / 2)] = this.bin_list[index]
+            if(this.bin_list[index] < this.bin_list[Math.floor(index / 2)]) {
+                var temp = this.bin_list[Math.floor(index / 2)]
+                this.bin_list[Math.floor(index / 2)] = this.bin_list[index]
                 this.bin_list[index] = temp
-                index = floor(index / 2)
+                index = Math.floor(index / 2)
             }
             range += -1
         }
@@ -62,7 +67,7 @@ class Binheap {
     }
 }
 
-module.exports = Binheap
+module.exports = {Binheap}
 
 
 
