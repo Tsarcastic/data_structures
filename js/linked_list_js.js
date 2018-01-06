@@ -59,13 +59,13 @@ class LinkedList {
         }
         if(curr.value == val) {
             this.head = curr.next
-            self._counter += -1
+            this._counter += -1
             return
         }
         while (curr.next != null) {
             if(curr.next.data == val) {
                 curr.next = curr.next.next
-                self._counter += -1
+                this._counter += -1
                 return
             }
             curr = curr.next
