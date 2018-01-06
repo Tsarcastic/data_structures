@@ -51,8 +51,8 @@ class DoubleLinkedList {
             throw 'This list is empty.'
         } else if(this.head == this.tail) {
             var output = this.head.data
-            this.head = None
-            this.tail = None
+            this.head = null
+            this.tail = null
             this._counter --
             return output
         } else {
@@ -60,6 +60,7 @@ class DoubleLinkedList {
             this.head = this.head.next
             this.head.previous = null
             this._counter --
+            return temp
         }
     }
 
@@ -68,15 +69,16 @@ class DoubleLinkedList {
             throw 'This list is empty.'
         } else if(this.head == this.tail) {
             var output = this.tail.data
-            this.head = None
-            this.tail = None
+            this.head = null
+            this.tail = null
             this._counter --
             return output
         } else {
             var temp = this.tail.data
-            this.tail = this.tail.next
+            this.tail = this.tail.previous
             this.tail.next = null
             this._counter --
+            return temp
         }
     }
 
@@ -84,25 +86,26 @@ class DoubleLinkedList {
         var curr = this.head
         if(curr == null) {
             throw 'The list is empty.'
-        } else if((this.head == this.tail) && (this.head.value == val)) {
+        } else if((this.head == this.tail) && (this.head.data == val)) {
             this.head = null
             this.tail = null
             this._counter --
             console.log('That item has been removed. This list is now empty.')
-        } else if(this.head.value == val) {
+            return
+        } else if(this.head.data == val) {
             this.head = this.head.next
             this.head.previous = null
             this._counter --
-            console.log('The node has been removed.')
+            console.log('The head has been removed.')
             return
-        } else if(this.tail.value == val) {
+        } else if(this.tail.data == val) {
             this.tail = this.tail.previous
             this.tail.next = null
             this._counter --
-            console.log('The node has been removed')
+            console.log('The tail has been removed')
             return
         } else {
-        while (curr.next != this.tail) {
+        while (curr.next != null) {
             if(curr.next.data == val) {
                 curr.next = curr.next.next
                 this._counter += -1
