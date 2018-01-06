@@ -24,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/Tsarcastic/data_structures/issues"
   },
-  "homepage": "https://github.com/Tsarcastic/data_structures#readme"
+  "homepage": "https://github.com/Tsarcastic/data_structures#readme",
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true
+  }
 }
