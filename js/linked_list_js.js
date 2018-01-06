@@ -1,4 +1,8 @@
-'use strict'
+/*jshint esversion: 6 */
+//'use strict()'
+
+
+var sum = require('./sum')
 
 class Node {
     constructor(data, next=null) {
@@ -24,4 +28,7 @@ class LinkedList {
     }
 }
 
-export {Node, LinkedList}
+
+
+
+//module.exports = {LinkedList, Node}
