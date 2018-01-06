@@ -1,10 +1,14 @@
 {
-  "name": "data_structures",
+  "name": "bd_jsds",
   "version": "1.0.0",
   "description": "Data structures for 401d7 Python class",
-  "main": "js/linked_list_js",
+  "main": "js/linked_list_js.js",
   "dependencies": {
-    "jest": "^22.0.4"
+    "es6": "0.0.7",
+    "jest": "^22.0.4",
+    "module": "^1.2.5",
+    "node": "^9.3.0",
+    "nodejs": "0.0.0"
   },
   "devDependencies": {
     "jest": "^22.0.4"
