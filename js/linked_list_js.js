@@ -47,6 +47,7 @@ class LinkedList {
             }
             curr = curr.next
         }
+        return false
         
 
     }
@@ -56,7 +57,12 @@ class LinkedList {
         if(curr == null) {
             throw 'The list is empty.'
         }
-        while (curr != null) {
+        if(curr.value == val) {
+            this.head = curr.next
+            self._counter += -1
+            return
+        }
+        while (curr.next != null) {
             if(curr.next.data == val) {
                 curr.next = curr.next.next
                 self._counter += -1
@@ -64,6 +70,7 @@ class LinkedList {
             }
             curr = curr.next
         }
+        return false
 
 
     }
