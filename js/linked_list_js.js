@@ -29,7 +29,6 @@ class LinkedList {
 
     pop() {
         if(this.head == null) {
-            throw 'The list is empty.'
         }
         var output = this.head.data
         this.head = this.head.next 
@@ -44,10 +43,11 @@ class LinkedList {
         }
         while (curr != null) {
             if (curr.data == val) {
-                return curr
+                return true
             }
+            curr = curr.next
         }
-        curr = curr.next
+        
 
     }
 
