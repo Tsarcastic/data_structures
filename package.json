@@ -1,0 +1,28 @@
+{
+  "name": "bd_jsds",
+  "version": "1.0.0",
+  "description": "Data structures for 401d7 Python class",
+  "main": "js/linked_list_js.js",
+  "dependencies": {
+    "es6": "0.0.7",
+    "module": "^1.2.5",
+    "node": "^9.3.0",
+    "nodejs": "0.0.0"
+  },
+  "devDependencies": {
+    "jest": "^22.0.4"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tsarcastic/data_structures.git"
+  },
+  "author": "Brendan M.D.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tsarcastic/data_structures/issues"
+  },
+  "homepage": "https://github.com/Tsarcastic/data_structures#readme"
+}
