@@ -50,26 +50,24 @@ class Graph {
     }
 
     neighbors(val) {
+        var output = []
         var temp_list = []
         for(var key in this.edges) {
             var array_key = key.split(",")
-            //temp_list.push(array_key)
-            for(var sub_item in array_key) {
-                temp_list.push(sub_item[0])
-                /*if(sub_item[0] == val) {
-                    temp_list.push(array_key[1])
-                }
-                if(sub_item[1] == val) {
+            if(array_key[0] == val) {
+                temp_list.push(array_key[1])
+            }
+            if(array_key[1] == val) {
                     temp_list.push(array_key[0])
-                } */
             }
         }
-        /*var set = new Set(temp_list)
-        temp_list = []
-        for(var item in set) {
-            temp_list.push(item)
-        } */
-        return temp_list
+        for(var i = 0; i < temp_list.length; i++ ) {
+            var the_num = parseInt(temp_list[i])
+            if(!(output.includes(the_num))) {
+                output.push(the_num)
+            }
+        } 
+        return output
     }
 
     adjacent(val1, val2) {

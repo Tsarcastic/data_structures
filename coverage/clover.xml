@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1515311652477" clover="3.2.0">
-  <project timestamp="1515311652477" name="All files">
-    <metrics statements="244" coveredstatements="219" conditionals="80" coveredconditionals="60" methods="44" coveredmethods="39" elements="368" coveredelements="318" complexity="0" loc="244" ncloc="244" packages="1" files="7" classes="7">
+<coverage generated="1515337513528" clover="3.2.0">
+  <project timestamp="1515337513528" name="All files">
+    <metrics statements="251" coveredstatements="226" conditionals="86" coveredconditionals="66" methods="44" coveredmethods="39" elements="381" coveredelements="331" complexity="0" loc="251" ncloc="251" packages="1" files="7" classes="7">
       <file name="binheap_js.js" path="C:\Users\brend\python401\data_structures\js\binheap_js.js">
         <metrics statements="39" coveredstatements="37" conditionals="13" coveredconditionals="12" methods="6" coveredmethods="5"/>
         <line num="6" count="12" type="stmt"/>
@@ -182,7 +182,7 @@
         <line num="122" count="1" type="stmt"/>
       </file>
       <file name="graph_js.js" path="C:\Users\brend\python401\data_structures\js\graph_js.js">
-        <metrics statements="33" coveredstatements="26" conditionals="15" coveredconditionals="7" methods="10" coveredmethods="7"/>
+        <metrics statements="40" coveredstatements="33" conditionals="21" coveredconditionals="13" methods="10" coveredmethods="7"/>
         <line num="6" count="8" type="stmt"/>
         <line num="7" count="8" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -205,17 +205,24 @@
         <line num="49" count="1" type="stmt"/>
         <line num="53" count="1" type="stmt"/>
         <line num="54" count="1" type="stmt"/>
-        <line num="55" count="4" type="stmt"/>
-        <line num="57" count="4" type="stmt"/>
-        <line num="58" count="8" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
-        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="79" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="4" type="stmt"/>
+        <line num="57" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="60" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="74" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="77" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="90" count="1" type="stmt"/>
       </file>
       <file name="que_js.js" path="C:\Users\brend\python401\data_structures\js\que_js.js">
         <metrics statements="26" coveredstatements="24" conditionals="6" coveredconditionals="5" methods="6" coveredmethods="5"/>
