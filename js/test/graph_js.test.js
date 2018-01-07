@@ -48,8 +48,8 @@ test('has_node() works', () => {
 })
 
 test('neighbors() works', () => {
-    var test_graph = populated_graph() 
-    expect(test_graph.neighbors()).toEqual([1, 2, 3, 4])
+    var test_graph = populated_edges_graph() 
+    expect(test_graph.neighbors(1)).toEqual([2, 4])
 })
 
 

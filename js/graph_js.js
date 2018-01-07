@@ -52,15 +52,23 @@ class Graph {
     neighbors(val) {
         var temp_list = []
         for(var key in this.edges) {
-            if(val in key) {
-                if(val == key[0]) {
-                    temp_list.push(key[1])
+            var array_key = key.split(",")
+            //temp_list.push(array_key)
+            for(var sub_item in array_key) {
+                temp_list.push(sub_item[0])
+                /*if(sub_item[0] == val) {
+                    temp_list.push(array_key[1])
                 }
-                else {
-                    temp_list.push(key[0])
-                }
+                if(sub_item[1] == val) {
+                    temp_list.push(array_key[0])
+                } */
             }
         }
+        /*var set = new Set(temp_list)
+        temp_list = []
+        for(var item in set) {
+            temp_list.push(item)
+        } */
         return temp_list
     }
 
