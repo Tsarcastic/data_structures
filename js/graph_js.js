@@ -12,7 +12,7 @@ class Graph {
     }
 
     edge_report() {
-        return Object.keys(edges)
+        return Object.keys(this.edges)
     }
 
     add_node(val) {
@@ -20,19 +20,21 @@ class Graph {
     }
 
     add_edge(val1, val2, wt=0) {
-        if (!((val1) in node_list)) {
+        if (!((val1) in this.node_list)) {
             this.add_node(val1)
         }
-        if (!((val2) in node_list)) {
+        if (!((val2) in this.node_list)) {
             this.add_node(val2)
         }
-        this.edges[(val1, val2)] = wt
+        var string_edge = String(val1, val2)
+        this.edges[String(val1) + "," + String(val2)] = wt
     }
 
     del_node(val) {
         var temp_edges = {}
         if(val in this.node_list) {
-            delete this.node_list[val]
+            var temp_index = this.node_list.indexOf[val]
+            this.node_list.splice(temp_index, 1)
             for(var key in this.edges) {
                 if (!(val in key)) {
                     temp_edges[key] = this.edges[key]
@@ -43,7 +45,7 @@ class Graph {
     }
 
     has_node(val) {
-        return (val in self.node_list)
+        return (val in this.node_list)
     }
 
     neighbors(val) {
@@ -64,13 +66,17 @@ class Graph {
         if((val1, val2) in this.edges) {
             return true
         }
-        else if((val1 in self.node_list) || (val2 in self.node_list)) {
+        else if((val1 in this.node_list) || (val2 in this.node_list)) {
             return false
         }
         else {
             throw 'Neither of those are in the graph.'
         }
-    }
-
-
+    } 
 }
+
+function convert_string_to_tuple(string) {
+    var output = string.split(",")
+}
+
+module.exports = {Graph}

@@ -107,7 +107,7 @@ test('Remove works fine if head is tail', () => {
     var test_dll = new js_dll.DoubleLinkedList()
     test_dll.push_head('x')
     test_dll.remove('x')
-    expect(test_dll.head.data).toBe(null)
+    expect(test_dll.head).toBe(null)
 })
 
 test('Removing an item that doesnt exist returns false', () => {
@@ -131,5 +131,5 @@ test('Removing a head is fine', () => {
     test_dll.push_head('z')
     test_dll.push_tail('x')   
     test_dll.remove('z')
-    expect(test_dll.head).toBe('x')
+    expect(test_dll.head.data).toBe('x')
 })
