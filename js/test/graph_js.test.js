@@ -52,6 +52,16 @@ test('neighbors() works', () => {
     expect(test_graph.neighbors(1)).toEqual([2, 4])
 })
 
+test('adjacent() works', () => {
+    var test_graph = populated_edges_graph()
+    expect(test_graph.adjacent(1, 2)).toBe(true)
+})
+
+test('adjacent() works', () => {
+    var test_graph = populated_edges_graph()
+    expect(test_graph.adjacent(1, 3)).toEqual(false)
+})
+
 
 
 function populated_graph() {

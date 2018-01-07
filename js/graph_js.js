@@ -71,20 +71,13 @@ class Graph {
     }
 
     adjacent(val1, val2) {
-        if((val1, val2) in this.edges) {
+        if(String(val1) + "," + String(val2) in this.edges) {
             return true
         }
-        else if((val1 in this.node_list) || (val2 in this.node_list)) {
+        else {
             return false
         }
-        else {
-            throw 'Neither of those are in the graph.'
-        }
     } 
-}
-
-function convert_string_to_tuple(string) {
-    var output = string.split(",")
 }
 
 module.exports = {Graph}
