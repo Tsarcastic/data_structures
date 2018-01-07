@@ -28,7 +28,7 @@ class Graph {
         }
         this.edges[String(val1) + "," + String(val2)] = wt
     }
-    //del node needs a lot of work. messes up values in dict and doesn't remove associated edges
+    //del node doesn't remove associated edges
     del_node(val) {
         var temp_edges = {}
         if(this.node_list.includes(val)) {
@@ -37,11 +37,20 @@ class Graph {
             
             for(var key in this.edges) {
                 var array_key = key.split(",")
-                if (!(array_key.includes(val))) {
+                if ((array_key[0] != val) && (array_key[1] != val)) {
                     temp_edges[key] = this.edges[key]
-                }
-            this.edges = temp_edges
+                }          
             }
+            this.edges = temp_edges
+        }
+    }
+
+    del_edge(val1, val2) {
+        var item = String(val1) + "," + String(val2)
+        if(item in this.edges) {
+            delete this.edges[item]
+        } else {
+            throw 'That edge does not exist.'
         }
     }
 

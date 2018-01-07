@@ -39,7 +39,7 @@ test('del_node() modifies the node list and edge list appropriately', () => {
     expect(test_graph.edges).toEqual({"1,2": 0, "1,4": 0,"3,2": 0, "4,1": 0}) 
     test_graph.del_node(1)
     expect(test_graph.node_list).toEqual([2, 4, 3])
-    //expect(test_graph.edges).toEqual({"3,2": 0, "4,1": 0})    
+    expect(test_graph.edges).toEqual({"3,2": 0})    
 })
 
 test('has_node() works', () => {
@@ -60,6 +60,14 @@ test('adjacent() works', () => {
 test('adjacent() works', () => {
     var test_graph = populated_edges_graph()
     expect(test_graph.adjacent(1, 3)).toEqual(false)
+})
+
+test('del_edge() works', () => {
+    var test_graph = populated_edges_graph()
+    test_graph.del_edge(1, 2)
+    test_graph.del_edge(1, 4)
+    test_graph.del_edge(3, 2)
+    expect(test_graph.edges).toEqual({"4,1": 0})
 })
 
 
