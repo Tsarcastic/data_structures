@@ -33,7 +33,9 @@ class Graph {
         var temp_edges = {}
         if(this.node_list.includes(val)) {
             var temp_index = this.node_list.indexOf[val]
-            this.node_list.splice(temp_index, 1)
+            if (temp_index != -1) {
+                this.node_list = this.node_list.slice(temp_index, temp_index)
+            }
             
             for(var key in this.edges) {
                 var array_key = key.split(",")

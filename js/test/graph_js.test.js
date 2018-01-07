@@ -70,6 +70,28 @@ test('del_edge() works', () => {
     expect(test_graph.edges).toEqual({"4,1": 0})
 })
 
+test('adjacent wont return false positives', () => {
+    var test_graph = populated_edges_graph()
+    expect(test_graph.adjacent(3,1)).toEqual(false)
+})
+
+test('has_node wont return false positives', () => {
+    var test_graph = populated_edges_graph()
+    expect(test_graph.has_node('spaghetti')).toEqual(false)
+})
+
+test('deleting all nodes raises no errors', () => {
+    var test_graph = populated_edges_graph()
+    test_graph.del_node(1)
+    test_graph.del_node(2)
+    expect(test_graph.node_list).toEqual([4, 3])    
+    test_graph.del_node(3)
+    expect(test_graph.node_list).toEqual([4])   
+    test_graph.del_node(4)
+    expect(test_graph.node_list).toEqual([])
+    expect(test_graph.edges).toEqual({})    
+})
+
 
 
 function populated_graph() {
