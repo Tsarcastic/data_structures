@@ -20,23 +20,24 @@ class Graph {
     }
 
     add_edge(val1, val2, wt=0) {
-        if (!((val1) in this.node_list)) {
+        if (!(this.node_list.includes(val1))) {
             this.add_node(val1)
         }
-        if (!((val2) in this.node_list)) {
+        if (!(this.node_list.includes(val2))) {
             this.add_node(val2)
         }
-        var string_edge = String(val1, val2)
         this.edges[String(val1) + "," + String(val2)] = wt
     }
-
+    //del node needs a lot of work. messes up values in dict and doesn't remove associated edges
     del_node(val) {
         var temp_edges = {}
-        if(val in this.node_list) {
+        if(this.node_list.includes(val)) {
             var temp_index = this.node_list.indexOf[val]
             this.node_list.splice(temp_index, 1)
+            
             for(var key in this.edges) {
-                if (!(val in key)) {
+                var array_key = key.split(",")
+                if (!(array_key.includes(val))) {
                     temp_edges[key] = this.edges[key]
                 }
             this.edges = temp_edges
@@ -60,6 +61,7 @@ class Graph {
                 }
             }
         }
+        return temp_list
     }
 
     adjacent(val1, val2) {
