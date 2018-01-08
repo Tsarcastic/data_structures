@@ -1,0 +1,27 @@
+- Yall should really clean up the repo, put src files in src and remove empty files (graph.py)
+    Done
+
+- The edges method doesn't work because edges is also an attribute.
+    Edges method is now edge_report
+
+- This isn't supposed to be a weighted graph.
+    Right, but the weight is automatically assumed to be one. To the user it is an unweighted graph.
+
+- If the nodes passed to add_edge are not already present in the graph, they should be added.
+    Done.
+
+- neighbors should raise an error if val is not in the graph.
+
+- Since this a directed graph, g.neighbors('a') should only return the nodes it points to not the nodes that point to it. I think adjacent should be the same, but eh, that one's vague.
+    Done
+
+- adjacent should raise an error if either of the supplied values are not in the graph.
+    Done
+    
+- readme
+
+- Can you think of some tweaks / a different implementation where every method other than del_node is O(1)?
+    Yes, but this was a group assignment and working well with others has been stressed. This is the method we could easily agree upon and didn't bog us down in arguments.
+
+- Are IndexErrors the appropriate errors?
+    Fixed
