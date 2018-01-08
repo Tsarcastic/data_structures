@@ -32,6 +32,14 @@ class BST(object):
             for item in iterable:
                 self.insert(item)
 
+    def balance(self, node):
+        """Return the balance of the bst."""
+        return (abs(max(self.left_depth, self.right_depth) - min(self.left_depth, self.right_depth)))
+
+    def depth(self):
+        """Returns the depth."""
+        return max(self.left_depth, self.right_depth)
+
     def insert(self, key, value=None):
         """Insert a new node into the binary search tree."""
         new_node = Node(key, value)
@@ -65,7 +73,7 @@ class BST(object):
                     else:
                         cur = cur.left
 
-    def contains(self, val):
+    def search(self, val):
         """Test if a tree contains a certain value."""
         cur = self.root
         while True:
@@ -101,6 +109,7 @@ class BST(object):
                     self.right_left(grand_pappy)
 
     def del_balancing(self, node):
+    """Attempt of a balancing equation."""
         if node.left:
             node.left_depth = max(node.left.left_depth, node.left.right_depth) + 1
         else:
