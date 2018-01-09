@@ -34,11 +34,11 @@ class BST(object):
 
     def balance(self, node):
         """Return the balance of the bst."""
-        return (abs(max(self.left_depth, self.right_depth) - min(self.left_depth, self.right_depth)))
+        return (abs(max(self.root.left_depth, self.root.right_depth) - min(self.root.left_depth, self.root.right_depth)))
 
     def depth(self):
         """Return the depth."""
-        return max(self.left_depth, self.right_depth)
+        return max(self.root.left_depth, self.root.right_depth)
 
     def insert(self, key, value=None):
         """Insert a new node into the binary search tree."""
