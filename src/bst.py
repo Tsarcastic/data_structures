@@ -37,7 +37,7 @@ class BST(object):
         return (abs(max(self.left_depth, self.right_depth) - min(self.left_depth, self.right_depth)))
 
     def depth(self):
-        """Returns the depth."""
+        """Return the depth."""
         return max(self.left_depth, self.right_depth)
 
     def insert(self, key, value=None):
@@ -45,6 +45,7 @@ class BST(object):
         new_node = Node(key, value)
         if not self.root:
             self.root = new_node
+            self.size += 1
         else:
             cur = self.root
             completed = False
