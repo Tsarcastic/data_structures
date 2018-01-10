@@ -62,5 +62,26 @@ class BST {
         }
     }
 
+    def search(val) {
+        var cur = this.root
+        while true {
+            if(cur.value == val) {
+                return true
+            } else if(val < cur.value) {
+                if(cur.left != null) {
+                    cur = cur.left
+                } else {
+                    return false
+                }
+            } else if(val > cur.value) {
+                if(cur.right != null) {
+                    cur = cur.right
+                } else {
+                    return false
+                }
+            }
+        }
+    }
+
 }
 module.exports = {Node, Deque}
