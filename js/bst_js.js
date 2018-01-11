@@ -39,7 +39,7 @@ class BST {
 
                 this.size += 1
 
-                if new_node.value > cur.value {
+                if(new_node.value > cur.value) {
                     if(cur.right == null) {
                         cur.right = new_node
                         new_node.parent = cur
@@ -64,7 +64,7 @@ class BST {
 
     def search(val) {
         var cur = this.root
-        while true {
+        while (true == true) {
             if(cur.value == val) {
                 return true
             } else if(val < cur.value) {
@@ -84,4 +84,4 @@ class BST {
     }
 
 }
-module.exports = {Node, Deque}
+module.exports = {Node, BST}

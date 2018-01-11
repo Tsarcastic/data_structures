@@ -6,7 +6,7 @@ from que_ import Queue
 class Node(object):
     """Creates a node object."""
 
-    def __init__(self, key, value=None, left=None, right=None):
+    def __init__(self, key, priority=None, left=None, right=None):
         """Constructor for the Node object."""
         self.key = key
         if not value:
