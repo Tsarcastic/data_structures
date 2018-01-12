@@ -62,7 +62,7 @@ class BST {
         }
     }
 
-    def search(val) {
+    search(val) {
         var cur = this.root
         while (true == true) {
             if(cur.value == val) {
@@ -83,5 +83,18 @@ class BST {
         }
     }
 
-}
+    balancing(middle) {
+        var top = middle.parent
+        if(top != null) {
+            var top_balance = top.right_depth - top.left_depth
+            var middle_balance = middle.right_depth - middle.left_depth
+        }  if(top_balance == -2) {
+                if(middle_balance == -1) {
+                    this.right_rotation(top)
+                } else {
+                    this.left_right(top)
+                }
+    }
+
+
 module.exports = {Node, BST}
