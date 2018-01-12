@@ -39,7 +39,7 @@ class BST {
 
                 this.size += 1
 
-                if new_node.value > cur.value {
+                if(new_node.value > cur.value) {
                     if(cur.right == null) {
                         cur.right = new_node
                         new_node.parent = cur
@@ -62,9 +62,9 @@ class BST {
         }
     }
 
-    def search(val) {
+    search(val) {
         var cur = this.root
-        while true {
+        while (true == true) {
             if(cur.value == val) {
                 return true
             } else if(val < cur.value) {
@@ -83,5 +83,18 @@ class BST {
         }
     }
 
-}
-module.exports = {Node, Deque}
+    balancing(middle) {
+        var top = middle.parent
+        if(top != null) {
+            var top_balance = top.right_depth - top.left_depth
+            var middle_balance = middle.right_depth - middle.left_depth
+        }  if(top_balance == -2) {
+                if(middle_balance == -1) {
+                    this.right_rotation(top)
+                } else {
+                    this.left_right(top)
+                }
+    }
+
+
+module.exports = {Node, BST}
