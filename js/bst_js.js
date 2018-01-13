@@ -88,13 +88,22 @@ class BST {
         if(top != null) {
             var top_balance = top.right_depth - top.left_depth
             var middle_balance = middle.right_depth - middle.left_depth
-        }  if(top_balance == -2) {
+            if(top_balance == -2) {
                 if(middle_balance == -1) {
                     this.right_rotation(top)
                 } else {
                     this.left_right(top)
                 }
-    }
+            } else {
+                if(middle_balance == 1) {
+                    this.left_rotation(top)
+                } else {
+                    this.right_left(top)
+                }
 
+            }
+        }
+    }
+}
 
 module.exports = {Node, BST}
