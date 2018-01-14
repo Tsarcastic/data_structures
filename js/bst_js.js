@@ -104,6 +104,33 @@ class BST {
             }
         }
     }
+
+    right_rotation(root) {
+        var pivot = root.left
+        var base = root.parent
+        pivot.parent = base
+        
+        if(pivot.parent == null) {
+            this.root = pivot
+        } else if(base.left == root) {
+            base.left = pivot
+        } else if(base.right == root) {
+            base.right = pivot
+        }
+
+        root.left = pivot.right
+
+        if(root.left != null) {
+            root.left_depth = max(root.left.left_depth, root.left.right_depth) + 1
+        } else {
+            root.left_depth = 0
+        }
+
+        pivot.right = root
+        pivot.right_depth = max(root.left_depth, root.right_depth) + 1
+    }
 }
+
+
 
 module.exports = {Node, BST}
