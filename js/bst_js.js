@@ -129,6 +129,32 @@ class BST {
         pivot.right = root
         pivot.right_depth = max(root.left_depth, root.right_depth) + 1
     }
+
+    left_rotation(root) {
+        var pivot = root.right
+        var base = root.parent
+        pivot.parent = root.parent
+        if(pivot.parent == null) {
+            this.root = pivot
+        } else if(base.left == root) {
+            base.left = pivot
+        } else if(base.right == root) {
+            base.right = pivot
+        }
+
+        root.parent = pivot
+        root.right = pivot.left
+
+        if(root.right != null) {
+            root.right_depth = max(root.right.left_depth, root.right.right_depth) + 1
+        } else {
+            root.right_depth = 0
+        }
+
+        pivot.left = root
+        pivot.left_depth = max(root.left_depth, root.right_depth) + 1
+
+    }
 }
 
 
