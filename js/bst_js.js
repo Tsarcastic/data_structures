@@ -170,8 +170,25 @@ class BST {
                 right.parent.right = center
                 right.parent.right_depth += -1
             }
-            }
         }
+        
+        left.left = null
+        left.parent = center
+        left.right = null
+        left.left_depth = 0
+        left.right_depth = 0
+
+        center.left = left
+        center.parent = right.parent
+        center.right = right
+        center.left = 1
+        center.right_depth = 1
+
+        right.left = null
+        right.right = null
+        right.parent = center
+        right.left_depth = 0
+        right.right_depth = 0
     }
 }
 
