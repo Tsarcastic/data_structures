@@ -191,7 +191,11 @@ class BST {
         right.right_depth = 0
     }
 
-    right_left(root):
+    right_left(end_left): {
+        var left = end_left
+        var center = left.right.left
+        var right = left.right
+    }
 }
 
 
