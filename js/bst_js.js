@@ -196,6 +196,15 @@ class BST {
         var center = left.right.left
         var right = left.right
     }
+
+    if(left.parent == null) {
+        this.root = center
+    } else {
+        if(left.parent.left == left) {
+            left.parent.left = center
+            left.parent.left_depth += 1
+        }
+    }
 }
 
 
